@@ -38,14 +38,19 @@ public class HelloApplication extends Application {
         System.out.println("Read()........");
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
-        List<Instructor> oktatóLista = session.createQuery("FROM Instructor").list();
+
+        List<Mertek> mertekek = session.createQuery("from Mertek").list();
+        for(Mertek m : mertekek) {
+            System.out.println(m.getNev());
+        }
+        /*List<Instructor> oktatóLista = session.createQuery("FROM Instructor").list();
         for (Instructor okt : oktatóLista) {
             System.out.print("ID: " + okt.getId());
             System.out.print(" Email: " + okt.getEmail());
             System.out.print(" First name:: " + okt.getFirstName());
             System.out.println(" Last name: " + okt.getLastName());
             System.out.println(" Kurzusok: " + okt.getCourses());
-        }
+        }*/
         t.commit();
         session.close();
     }

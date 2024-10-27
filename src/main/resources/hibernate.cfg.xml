@@ -7,5 +7,6 @@
         <property name="connection.url">jdbc:sqlite:/home/bady/hibernate.db</property>
         <mapping class="hu.nje.hibernatefxdemo.Instructor"/>
         <mapping class="hu.nje.hibernatefxdemo.Course"/>
+        <mapping class="hu.nje.hibernatefxdemo.Mertek"/>
     </session-factory>
 </hibernate-configuration>
