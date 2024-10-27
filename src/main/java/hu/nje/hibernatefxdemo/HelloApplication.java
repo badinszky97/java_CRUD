@@ -15,6 +15,9 @@ import java.util.List;
 public class HelloApplication extends Application {
     static SessionFactory factory;
     HelloController controller;
+    List<Mertek> mertekek;
+    List<Megnevezes> megnevezesek;
+    List<Korlatozas> korlatozasok;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -28,9 +31,9 @@ public class HelloApplication extends Application {
         //try{
             Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
             factory = cfg.buildSessionFactory();
-            List<Korlatozas> osszes = Read();
+            Read();
             factory.close();
-            controller.tableFeltolt(osszes);
+            controller.tableFeltolt(korlatozasok);
         //}
         //catch(Exception e){
        //     System.out.println("EXCEPTION VAN: " + e);
@@ -38,24 +41,24 @@ public class HelloApplication extends Application {
 
 
     }
-    public List<Korlatozas> Read() {
+    public void Read() {
         System.out.println("Read()........");
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
         System.out.println("--------------------------Mértékek");
-        List<Mertek> mertekek = session.createQuery("from Mertek").list();
+        mertekek = session.createQuery("from Mertek").list();
         for(Mertek m : mertekek) {
             System.out.println(m.getNev());
         }
         System.out.println("----------------------------Megnevezesek");
-        List<Megnevezes> megnevezesek = session.createQuery("from Megnevezes").list();
+        megnevezesek = session.createQuery("from Megnevezes").list();
         for(Megnevezes m : megnevezesek) {
             System.out.println(m.getNev());
         }
 
         System.out.println("----------------------------Korlatozasok");
-        List<Korlatozas> krolatozasok = session.createQuery("from Korlatozas").list();
-        for(Korlatozas m : krolatozasok) {
+        korlatozasok = session.createQuery("from Korlatozas").list();
+        for(Korlatozas m : korlatozasok) {
             System.out.print(m.getUtszam() + " ");
             System.out.print(m.getTelepules() + " ");
             System.out.print(m.getMegnevezes().getNev() + " ");
@@ -65,7 +68,7 @@ public class HelloApplication extends Application {
 
         t.commit();
         session.close();
-        return krolatozasok;
+
     }
     public static void main(String[] args) {
         launch();
