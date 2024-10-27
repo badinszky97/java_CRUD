@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 5.3//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:sqlite:/home/bady/hibernate.db</property>
+        <mapping class="hu.nje.hibernatefxdemo.Instructor"/>
+        <mapping class="hu.nje.hibernatefxdemo.Course"/>
+    </session-factory>
+</hibernate-configuration>
