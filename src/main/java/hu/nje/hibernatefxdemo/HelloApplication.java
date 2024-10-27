@@ -38,11 +38,18 @@ public class HelloApplication extends Application {
         System.out.println("Read()........");
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
-
+        System.out.println("--------------------------Mértékek");
         List<Mertek> mertekek = session.createQuery("from Mertek").list();
         for(Mertek m : mertekek) {
             System.out.println(m.getNev());
         }
+        System.out.println("----------------------------Megnevezesek");
+        List<Megnevezes> megnevezesek = session.createQuery("from Megnevezes").list();
+        for(Megnevezes m : megnevezesek) {
+            System.out.println(m.getNev());
+        }
+
+
         /*List<Instructor> oktatóLista = session.createQuery("FROM Instructor").list();
         for (Instructor okt : oktatóLista) {
             System.out.print("ID: " + okt.getId());

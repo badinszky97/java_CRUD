@@ -8,5 +8,6 @@
         <mapping class="hu.nje.hibernatefxdemo.Instructor"/>
         <mapping class="hu.nje.hibernatefxdemo.Course"/>
         <mapping class="hu.nje.hibernatefxdemo.Mertek"/>
+        <mapping class="hu.nje.hibernatefxdemo.Megnevezes"/>
     </session-factory>
 </hibernate-configuration>
