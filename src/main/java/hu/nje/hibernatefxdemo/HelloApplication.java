@@ -49,6 +49,14 @@ public class HelloApplication extends Application {
             System.out.println(m.getNev());
         }
 
+        System.out.println("----------------------------Korlatozasok");
+        List<Korlatozas> krolatozasok = session.createQuery("from Korlatozas").list();
+        for(Korlatozas m : krolatozasok) {
+            System.out.print(m.getUtszam() + " ");
+            System.out.print(m.getTelepules() + " ");
+            System.out.println();
+        }
+
 
         /*List<Instructor> oktatóLista = session.createQuery("FROM Instructor").list();
         for (Instructor okt : oktatóLista) {
