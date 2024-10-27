@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import java.io.IOException;
+import java.util.List;
 
 public class HelloApplication extends Application {
     static SessionFactory factory;
@@ -24,7 +25,7 @@ public class HelloApplication extends Application {
         //try{
             Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
             factory = cfg.buildSessionFactory();
-
+            Read();
             factory.close();
         //}
         //catch(Exception e){
@@ -33,7 +34,21 @@ public class HelloApplication extends Application {
 
 
     }
-
+    public static void Read() {
+        System.out.println("Read()........");
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+        List<Instructor> oktatóLista = session.createQuery("FROM Instructor").list();
+        for (Instructor okt : oktatóLista) {
+            System.out.print("ID: " + okt.getId());
+            System.out.print(" Email: " + okt.getEmail());
+            System.out.print(" First name:: " + okt.getFirstName());
+            System.out.println(" Last name: " + okt.getLastName());
+            System.out.println(" Kurzusok: " + okt.getCourses());
+        }
+        t.commit();
+        session.close();
+    }
     public static void main(String[] args) {
         launch();
     }
