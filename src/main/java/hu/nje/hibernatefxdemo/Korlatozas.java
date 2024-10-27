@@ -1,9 +1,6 @@
 package hu.nje.hibernatefxdemo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "korlatozasok")
@@ -11,7 +8,6 @@ public class Korlatozas {
     @Id
     @Column(name = "id")
     private int id;
-
 
     @Column(name = "utszam")
     private Integer utszam;
@@ -31,11 +27,15 @@ public class Korlatozas {
     @Column(name = "meddig")
     private String meddig;
 
-    @Column(name = "megnevid")
-    private Integer megnevid;
 
-    @Column(name = "mertekid")
-    private Integer mertekid;
+    @OneToOne
+    @JoinColumn(name = "mertekid")
+    private Mertek mertek;
+
+    @OneToOne
+    @JoinColumn(name = "megnevid")
+    private Megnevezes megnevezes;
+
 
     @Column(name = "sebesseg")
     private Integer sebesseg;
@@ -43,18 +43,18 @@ public class Korlatozas {
     public Korlatozas() {
     }
 
-
-    public Korlatozas(Integer utszam, Float kezdet, Float veg, String telepules, String mettol, String meddig, Integer megnevid, Integer mertekid, Integer sebesseg) {
+    public Korlatozas(Integer utszam, Float kezdet, Float veg, String telepules, String mettol, String meddig,  Mertek mertek, Megnevezes megnevezes, Integer sebesseg) {
         this.utszam = utszam;
         this.kezdet = kezdet;
         this.veg = veg;
         this.telepules = telepules;
         this.mettol = mettol;
         this.meddig = meddig;
-        this.megnevid = megnevid;
-        this.mertekid = mertekid;
+        this.mertek = mertek;
+        this.megnevezes = megnevezes;
         this.sebesseg = sebesseg;
     }
+
 
     public Integer getUtszam() {
         return utszam;
@@ -104,27 +104,27 @@ public class Korlatozas {
         this.meddig = meddig;
     }
 
-    public Integer getMegnevid() {
-        return megnevid;
-    }
-
-    public void setMegnevid(Integer megnevid) {
-        this.megnevid = megnevid;
-    }
-
-    public Integer getMertekid() {
-        return mertekid;
-    }
-
-    public void setMertekid(Integer mertekid) {
-        this.mertekid = mertekid;
-    }
-
     public Integer getSebesseg() {
         return sebesseg;
     }
 
     public void setSebesseg(Integer sebesseg) {
         this.sebesseg = sebesseg;
+    }
+
+    public Mertek getMertek() {
+        return mertek;
+    }
+
+    public void setMertek(Mertek mertek) {
+        this.mertek = mertek;
+    }
+
+    public Megnevezes getMegnevezes() {
+        return megnevezes;
+    }
+
+    public void setMegnevezes(Megnevezes megnevezes) {
+        this.megnevezes = megnevezes;
     }
 }

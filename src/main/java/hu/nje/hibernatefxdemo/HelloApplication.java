@@ -14,10 +14,13 @@ import java.util.List;
 
 public class HelloApplication extends Application {
     static SessionFactory factory;
+    HelloController controller;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        controller = fxmlLoader.getController();
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
@@ -25,8 +28,9 @@ public class HelloApplication extends Application {
         //try{
             Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
             factory = cfg.buildSessionFactory();
-            Read();
+            List<Korlatozas> osszes = Read();
             factory.close();
+            controller.tableFeltolt(osszes);
         //}
         //catch(Exception e){
        //     System.out.println("EXCEPTION VAN: " + e);
@@ -34,7 +38,7 @@ public class HelloApplication extends Application {
 
 
     }
-    public static void Read() {
+    public List<Korlatozas> Read() {
         System.out.println("Read()........");
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
@@ -54,20 +58,14 @@ public class HelloApplication extends Application {
         for(Korlatozas m : krolatozasok) {
             System.out.print(m.getUtszam() + " ");
             System.out.print(m.getTelepules() + " ");
+            System.out.print(m.getMegnevezes().getNev() + " ");
+            System.out.print(m.getMertek().getNev() + " ");
             System.out.println();
         }
 
-
-        /*List<Instructor> oktatóLista = session.createQuery("FROM Instructor").list();
-        for (Instructor okt : oktatóLista) {
-            System.out.print("ID: " + okt.getId());
-            System.out.print(" Email: " + okt.getEmail());
-            System.out.print(" First name:: " + okt.getFirstName());
-            System.out.println(" Last name: " + okt.getLastName());
-            System.out.println(" Kurzusok: " + okt.getCourses());
-        }*/
         t.commit();
         session.close();
+        return krolatozasok;
     }
     public static void main(String[] args) {
         launch();
