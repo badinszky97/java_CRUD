@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="519.0" prefWidth="664.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="hu.nje.hibernatefxdemo.HelloController">
+<VBox alignment="CENTER" prefHeight="519.0" prefWidth="664.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.nje.hibernatefxdemo.HelloController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -27,4 +27,6 @@
          <TableColumn fx:id="sebessegCol" prefWidth="75.0" text="sebesseg" />
      </columns>
    </TableView>
+   <Label fx:id="felmpLabel" />
+   <Label fx:id="mpLabel" />
 </VBox>

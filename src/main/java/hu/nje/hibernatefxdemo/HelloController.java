@@ -1,10 +1,14 @@
 package hu.nje.hibernatefxdemo;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Duration;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,12 +17,17 @@ import org.hibernate.cfg.Configuration;
 import java.util.List;
 
 public class HelloController {
+    Integer mp = 0;
+    Integer felmp = 0;
     static SessionFactory factory;
     List<Mertek> mertekek;
     List<Megnevezes> megnevezesek;
     List<Korlatozas> korlatozasok;
     @FXML
     private Label welcomeText;
+
+    @FXML private Label mpLabel;
+    @FXML private Label felmpLabel;
 
     @FXML
     private TableView korlTable;
@@ -32,6 +41,22 @@ public class HelloController {
     @FXML private TableColumn<Korlatozas, String> mertekCol;
     @FXML private TableColumn<Korlatozas, Integer> sebessegCol;
 
+
+    Timeline timelinemp = new Timeline(
+            new KeyFrame(Duration.seconds(1),
+                    e -> {
+                        mpLabel.setText(mp.toString());
+                        mp++;
+                    }));
+
+    Timeline timelinefelmp = new Timeline(
+            new KeyFrame(Duration.seconds(0.5),
+                    e -> {
+                        felmpLabel.setText(felmp.toString());
+                        felmp++;
+                    }));
+
+
     public void Init(){
         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
         factory = cfg.buildSessionFactory();
@@ -39,6 +64,12 @@ public class HelloController {
         //Hozzaad();
         //factory.close();
         tableFeltolt(korlatozasok);
+
+        timelinemp.setCycleCount(Timeline.INDEFINITE);
+        timelinemp.play();
+
+        timelinefelmp.setCycleCount(Timeline.INDEFINITE);
+        timelinefelmp.play();
     }
     public void Hozzaad(){
         Korlatozas korlatozas = new Korlatozas();
@@ -87,7 +118,10 @@ public class HelloController {
 
     }
 
-
+    public void SetLabeltext(String text)
+    {
+        welcomeText.setText(text);
+    }
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
