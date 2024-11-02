@@ -4,9 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 import org.hibernate.Session;
@@ -42,6 +40,17 @@ public class HelloController {
     @FXML private TableColumn<Korlatozas, Integer> sebessegCol;
 
 
+
+    @FXML private TextField adatbazisUtszamTf;
+    @FXML private TextField adatbazisKezdetTf;
+    @FXML private TextField adatbazisVegTf;
+    @FXML private TextField adatbazisTelepulesTf;
+    @FXML private TextField adatbazisMettolTf;
+    @FXML private TextField adatbazisMeddigTf;
+    @FXML private ComboBox adatbazisMegnevezesTf;
+    @FXML private ComboBox adatbazisMertekTf;
+    @FXML private TextField adatbazisSebessegTf;
+
     Timeline timelinemp = new Timeline(
             new KeyFrame(Duration.seconds(1),
                     e -> {
@@ -70,48 +79,48 @@ public class HelloController {
 
         timelinefelmp.setCycleCount(Timeline.INDEFINITE);
         timelinefelmp.play();
+
+        adatbazisMegnevezesTf.getItems().clear();
+        for(Megnevezes egy : megnevezesek)
+        {
+            adatbazisMegnevezesTf.getItems().add(egy.toString());
+        }
+
+
+        adatbazisMertekTf.getItems().clear();
+        for(Mertek egy : mertekek)
+        {
+            adatbazisMertekTf.getItems().add(egy.toString());
+        }
+
+
+
     }
-    public void Hozzaad(){
-        Korlatozas korlatozas = new Korlatozas();
-        korlatozas.setUtszam(1234);
-        korlatozas.setKezdet(1.0f);
-        korlatozas.setVeg(2.0f);
-        korlatozas.setTelepules("uj telepulesnev");
-        korlatozas.setMettol("2020");
-        korlatozas.setMeddig("2121");
-        korlatozas.setMegnevezes(megnevezesek.get(1));
-        korlatozas.setMertek(mertekek.get(1));
-        korlatozas.setSebesseg(66);
-        Session session = factory.openSession();
-        Transaction t = session.beginTransaction();
-        session.save(korlatozas);
-        t.commit();
-        session.close();
-    }
+
     public void Read() {
         System.out.println("Read()........");
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
-        System.out.println("--------------------------Mértékek");
+        //System.out.println("--------------------------Mértékek");
         mertekek = session.createQuery("from Mertek").list();
-        for(Mertek m : mertekek) {
+        /*for(Mertek m : mertekek) {
             System.out.println(m.getNev());
-        }
-        System.out.println("----------------------------Megnevezesek");
+        }*/
+        //System.out.println("----------------------------Megnevezesek");
         megnevezesek = session.createQuery("from Megnevezes").list();
-        for(Megnevezes m : megnevezesek) {
+        /*for(Megnevezes m : megnevezesek) {
             System.out.println(m.getNev());
-        }
+        }*/
 
-        System.out.println("----------------------------Korlatozasok");
+        //System.out.println("----------------------------Korlatozasok");
         korlatozasok = session.createQuery("from Korlatozas").list();
-        for(Korlatozas m : korlatozasok) {
+        /*for(Korlatozas m : korlatozasok) {
             System.out.print(m.getUtszam() + " ");
             System.out.print(m.getTelepules() + " ");
             System.out.print(m.getMegnevezes().getNev() + " ");
             System.out.print(m.getMertek().getNev() + " ");
             System.out.println();
-        }
+        }*/
 
         t.commit();
         session.close();
@@ -130,6 +139,55 @@ public class HelloController {
         System.out.println(korlatozasok.get(szam).getTelepules());
     }
 
+    public void AdatbazisElemKijelol(){
+        Korlatozas kijelolt = (Korlatozas)korlTable.getFocusModel().getFocusedItem();
+        adatbazisUtszamTf.setText(kijelolt.getUtszam().toString());
+        adatbazisKezdetTf.setText(kijelolt.getKezdet().toString());
+        adatbazisVegTf.setText(kijelolt.getVeg().toString());
+        adatbazisTelepulesTf.setText(kijelolt.getTelepules());
+        adatbazisMettolTf.setText(kijelolt.getMettol());
+        adatbazisMeddigTf.setText(kijelolt.getMeddig());
+        adatbazisSebessegTf.setText(kijelolt.getSebesseg().toString());
+        adatbazisMegnevezesTf.setValue(kijelolt.getMegnevezes().toString());
+        adatbazisMertekTf.setValue(kijelolt.getMertek().toString());
+    }
+
+    public void AdatbazisElemHozzaad()
+    {
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+
+
+        Korlatozas ujelem = new Korlatozas();
+        ujelem.setUtszam(Integer.valueOf(adatbazisUtszamTf.getText()));
+        ujelem.setKezdet(Float.valueOf(adatbazisKezdetTf.getText()));
+        ujelem.setVeg(Float.valueOf(adatbazisVegTf.getText()));
+        ujelem.setTelepules(adatbazisTelepulesTf.getText());
+        ujelem.setMettol(adatbazisMettolTf.getText());
+        ujelem.setMeddig(adatbazisMeddigTf.getText());
+        ujelem.setSebesseg(Integer.valueOf(adatbazisSebessegTf.getText()));
+
+        Megnevezes megn = session.load(Megnevezes.class, 1);
+        megn.setNev(adatbazisMegnevezesTf.getValue().toString());
+        ujelem.setMegnevezes(megn);
+
+        Mertek merteke = session.load(Mertek.class, 1);
+        merteke.setNev(adatbazisMertekTf.getValue().toString());
+        ujelem.setMertek(merteke);
+
+        System.out.println("Elotte hossz: " + korlatozasok.size());
+
+        session.save(ujelem);
+        System.out.println(ujelem);
+        t.commit();
+        session.close();
+        Read();
+        tableFeltolt(korlatozasok);
+        System.out.println("Utana hossz: " + korlatozasok.size());
+        System.out.println("Lista hossz: " + korlTable.getItems().size());
+
+    }
+
     public void tableFeltolt(List<Korlatozas> lista){
         utszamCol.setCellValueFactory(new PropertyValueFactory<>("utszam"));
         kezdetCol.setCellValueFactory(new PropertyValueFactory<>("kezdet"));
@@ -140,11 +198,12 @@ public class HelloController {
         megnevezesCol.setCellValueFactory(new PropertyValueFactory<>("megnevezes"));
         mertekCol.setCellValueFactory(new PropertyValueFactory<>("mertek"));
         sebessegCol.setCellValueFactory(new PropertyValueFactory<>("sebesseg"));
-
+        korlTable.getItems().clear();
         for(int i=0;i<lista.size();i++)
         {
             korlTable.getItems().add(lista.get(i));
         }
+        System.out.println("Lista hossz: " + korlTable.getItems().size());
     }
 
 

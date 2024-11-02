@@ -6,6 +6,8 @@ import javax.persistence.*;
 @Table(name = "korlatozasok")
 public class Korlatozas {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Basic
     @Column(name = "id")
     private int id;
 
@@ -27,7 +29,6 @@ public class Korlatozas {
     @Column(name = "meddig")
     private String meddig;
 
-
     @OneToOne
     @JoinColumn(name = "mertekid")
     private Mertek mertek;
@@ -35,7 +36,6 @@ public class Korlatozas {
     @OneToOne
     @JoinColumn(name = "megnevid")
     private Megnevezes megnevezes;
-
 
     @Column(name = "sebesseg")
     private Integer sebesseg;
@@ -126,5 +126,10 @@ public class Korlatozas {
 
     public void setMegnevezes(Megnevezes megnevezes) {
         this.megnevezes = megnevezes;
+    }
+
+    @Override
+    public String toString(){
+        return this.getUtszam().toString() + " " + this.getTelepules() + " " + this.getMegnevezes() + " " + this.getMertek() + " " + this.getSebesseg();
     }
 }
