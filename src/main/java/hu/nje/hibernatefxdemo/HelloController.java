@@ -15,20 +15,25 @@ import org.hibernate.cfg.Configuration;
 import java.util.List;
 
 public class HelloController {
+
+
+
+    /**
+     * Párhuzamos programozás feladat változói
+     */
+    @FXML private Label mpLabel;
+    @FXML private Label felmpLabel;
     Integer mp = 0;
     Integer felmp = 0;
+
+    /**
+     * Adatbázis feladat változói
+     */
     static SessionFactory factory;
     List<Mertek> mertekek;
     List<Megnevezes> megnevezesek;
     List<Korlatozas> korlatozasok;
-    @FXML
-    private Label welcomeText;
-
-    @FXML private Label mpLabel;
-    @FXML private Label felmpLabel;
-
-    @FXML
-    private TableView korlTable;
+    @FXML private TableView korlTable;
     @FXML private TableColumn<Korlatozas, Integer> utszamCol;
     @FXML private TableColumn<Korlatozas, Float> kezdetCol;
     @FXML private TableColumn<Korlatozas, Float> vegCol;
@@ -38,9 +43,6 @@ public class HelloController {
     @FXML private TableColumn<Korlatozas, String> megnevezesCol;
     @FXML private TableColumn<Korlatozas, String> mertekCol;
     @FXML private TableColumn<Korlatozas, Integer> sebessegCol;
-
-
-
     @FXML private TextField adatbazisUtszamTf;
     @FXML private TextField adatbazisKezdetTf;
     @FXML private TextField adatbazisVegTf;
@@ -51,6 +53,10 @@ public class HelloController {
     @FXML private ComboBox adatbazisMertekTf;
     @FXML private TextField adatbazisSebessegTf;
 
+
+    /**
+     * Párhuzamos programozás feladat objektumok
+     */
     Timeline timelinemp = new Timeline(
             new KeyFrame(Duration.seconds(1),
                     e -> {
@@ -65,13 +71,15 @@ public class HelloController {
                         felmp++;
                     }));
 
-
+    /**
+     * Inicializáló függvény, ami csak egyszer fut le a program legelején
+     * Kapcsolódik az adatbázishoz és feltölti a helyi listákat a táblákból
+     * Feltölti a comboboxok elemeit is
+     */
     public void Init(){
         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
         factory = cfg.buildSessionFactory();
         Read();
-        //Hozzaad();
-        //factory.close();
         tableFeltolt(korlatozasok);
 
         timelinemp.setCycleCount(Timeline.INDEFINITE);
@@ -86,59 +94,33 @@ public class HelloController {
             adatbazisMegnevezesTf.getItems().add(egy.toString());
         }
 
-
         adatbazisMertekTf.getItems().clear();
         for(Mertek egy : mertekek)
         {
             adatbazisMertekTf.getItems().add(egy.toString());
         }
-
-
-
     }
 
+    /**
+     * Az adatbázis elemeit letölti és feltölti a helyi objektum listákat.
+     */
     public void Read() {
         System.out.println("Read()........");
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
-        //System.out.println("--------------------------Mértékek");
-        mertekek = session.createQuery("from Mertek").list();
-        /*for(Mertek m : mertekek) {
-            System.out.println(m.getNev());
-        }*/
-        //System.out.println("----------------------------Megnevezesek");
-        megnevezesek = session.createQuery("from Megnevezes").list();
-        /*for(Megnevezes m : megnevezesek) {
-            System.out.println(m.getNev());
-        }*/
 
-        //System.out.println("----------------------------Korlatozasok");
+        mertekek = session.createQuery("from Mertek").list();
+        megnevezesek = session.createQuery("from Megnevezes").list();
         korlatozasok = session.createQuery("from Korlatozas").list();
-        /*for(Korlatozas m : korlatozasok) {
-            System.out.print(m.getUtszam() + " ");
-            System.out.print(m.getTelepules() + " ");
-            System.out.print(m.getMegnevezes().getNev() + " ");
-            System.out.print(m.getMertek().getNev() + " ");
-            System.out.println();
-        }*/
 
         t.commit();
         session.close();
 
     }
 
-    public void SetLabeltext(String text)
-    {
-        welcomeText.setText(text);
-    }
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-
-        Integer szam = korlTable.getSelectionModel().getSelectedIndex();
-        System.out.println(korlatozasok.get(szam).getTelepules());
-    }
-
+    /**
+     * Ez a funckió hívódik meg, ha a törlés gombra kattintunk. Törlődik a kijelölt elem.
+     */
     public void AdatbazisElemTorlese()
     {
 
@@ -158,6 +140,9 @@ public class HelloController {
 
     }
 
+    /**
+     * Ez a funkció hívódik meg a módosít gombra kattinta. A kijelölt elem módosul.
+     */
     public void AdatbazisElemModositasa()
     {
         Session session = factory.openSession();
@@ -174,37 +159,21 @@ public class HelloController {
 
 
         System.out.println("keresett megnevezes: " + adatbazisMegnevezesTf.getValue().toString());
-        int index = 0;
         for(int i = 0; i< megnevezesek.size();i++)
         {
             if(megnevezesek.get(i).getNev().equals(adatbazisMegnevezesTf.getValue().toString()))
             {
-                System.out.println("Qnem egyenlod: " + megnevezesek.get(i).getNev() + " " + adatbazisMegnevezesTf.getValue().toString());
-                System.out.println("TALÁLTAM MEGNEVEZEST");
-                index=i;
                 kijelolt.setMegnevezes(megnevezesek.get(i));
             }
         }
-        System.out.println("megnevezesid: " + index + " " + megnevezesek.size());
-        //Megnevezes megn = session.load(Megnevezes.class, 3);
-        //ujelem.setMegnevezes(megn);
 
-
-        System.out.println("keresett mertek: " + adatbazisMertekTf.getValue().toString());
-        index = 0;
         for(int i = 0; i< mertekek.size();i++)
         {
             if(mertekek.get(i).getNev().equals(adatbazisMertekTf.getValue().toString()))
             {
-                System.out.println("nem egyenlod: " + mertekek.get(i).getNev() + " " + adatbazisMertekTf.getValue().toString());
-                System.out.println("TALÁLTAM MÉRTÉKET");
-                index=i;
                 kijelolt.setMertek(mertekek.get(i));
             }
         }
-        System.out.println("mertekid: " + index + " " + mertekek.size());
-
-
 
         session.update(kijelolt);
         System.out.println(kijelolt);
@@ -213,9 +182,11 @@ public class HelloController {
         Read();
         tableFeltolt(korlatozasok);
         System.out.println("Utana hossz: " + korlatozasok.size());
-        System.out.println("Lista hossz: " + korlTable.getItems().size());
     }
 
+    /**
+     * Ez a funkció hívódik meg ha a listában más elem jelölődik ki.
+     */
     public void AdatbazisElemKijelol(){
         Korlatozas kijelolt = (Korlatozas)korlTable.getFocusModel().getFocusedItem();
         adatbazisUtszamTf.setText(kijelolt.getUtszam().toString());
@@ -229,14 +200,15 @@ public class HelloController {
         adatbazisMertekTf.setValue(kijelolt.getMertek().toString());
     }
 
+    /**
+     * Ez a funckió hívódik meg a hozzáad gomb megnyomásakor. Egy új elem létre lesz hozva a korlatozasok táblában.
+     */
     public void AdatbazisElemHozzaad()
     {
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
 
-
         Korlatozas ujelem = new Korlatozas();
-
 
         ujelem.setUtszam(Integer.valueOf(adatbazisUtszamTf.getText()));
         ujelem.setKezdet(Float.valueOf(adatbazisKezdetTf.getText()));
@@ -246,38 +218,21 @@ public class HelloController {
         ujelem.setMeddig(adatbazisMeddigTf.getText());
         ujelem.setSebesseg(Integer.valueOf(adatbazisSebessegTf.getText()));
 
-        System.out.println("keresett megnevezes: " + adatbazisMegnevezesTf.getValue().toString());
-        int index = 0;
         for(int i = 0; i< megnevezesek.size();i++)
         {
             if(megnevezesek.get(i).getNev().equals(adatbazisMegnevezesTf.getValue().toString()))
             {
-                System.out.println("Qnem egyenlod: " + megnevezesek.get(i).getNev() + " " + adatbazisMegnevezesTf.getValue().toString());
-                System.out.println("TALÁLTAM MEGNEVEZEST");
-                index=i;
                 ujelem.setMegnevezes(megnevezesek.get(i));
             }
         }
-        System.out.println("megnevezesid: " + index + " " + megnevezesek.size());
-        //Megnevezes megn = session.load(Megnevezes.class, 3);
-        //ujelem.setMegnevezes(megn);
 
-
-        System.out.println("keresett mertek: " + adatbazisMertekTf.getValue().toString());
-        index = 0;
         for(int i = 0; i< mertekek.size();i++)
         {
             if(mertekek.get(i).getNev().equals(adatbazisMertekTf.getValue().toString()))
             {
-                System.out.println("nem egyenlod: " + mertekek.get(i).getNev() + " " + adatbazisMertekTf.getValue().toString());
-                System.out.println("TALÁLTAM MÉRTÉKET");
-                index=i;
                 ujelem.setMertek(mertekek.get(i));
             }
         }
-        System.out.println("mertekid: " + index + " " + mertekek.size());
-        //Mertek merteke = session.load(Mertek.class, 4);
-        //ujelem.setMertek(merteke);
 
         System.out.println("Elotte hossz: " + korlatozasok.size());
 
@@ -288,10 +243,13 @@ public class HelloController {
         Read();
         tableFeltolt(korlatozasok);
         System.out.println("Utana hossz: " + korlatozasok.size());
-        System.out.println("Lista hossz: " + korlTable.getItems().size());
 
     }
 
+    /**
+     * Ez a funkció feltölti a GUI-n a táblázatot a paraméterként átadott listával.
+     * @param lista
+     */
     public void tableFeltolt(List<Korlatozas> lista){
         utszamCol.setCellValueFactory(new PropertyValueFactory<>("utszam"));
         kezdetCol.setCellValueFactory(new PropertyValueFactory<>("kezdet"));
@@ -309,6 +267,4 @@ public class HelloController {
         }
         System.out.println("Lista hossz: " + korlTable.getItems().size());
     }
-
-
 }
