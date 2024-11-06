@@ -139,6 +139,25 @@ public class HelloController {
         System.out.println(korlatozasok.get(szam).getTelepules());
     }
 
+    public void AdatbazisElemTorlese()
+    {
+
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+
+        Korlatozas kijelolt = (Korlatozas)korlTable.getFocusModel().getFocusedItem();
+
+        session.remove(kijelolt);
+        System.out.println(kijelolt);
+        t.commit();
+        session.close();
+        Read();
+        tableFeltolt(korlatozasok);
+        System.out.println("Utana hossz: " + korlatozasok.size());
+        System.out.println("Lista hossz: " + korlTable.getItems().size());
+
+    }
+
     public void AdatbazisElemKijelol(){
         Korlatozas kijelolt = (Korlatozas)korlTable.getFocusModel().getFocusedItem();
         adatbazisUtszamTf.setText(kijelolt.getUtszam().toString());

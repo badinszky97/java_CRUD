@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.nje.hibernatefxdemo.HelloController">
    <children>
       <AnchorPane prefHeight="754.0" prefWidth="1280.0">
@@ -51,6 +50,7 @@
             <ComboBox fx:id="adatbazisMegnevezesTf" layoutX="148.0" layoutY="629.0" prefHeight="24.0" prefWidth="171.0" />
             <ComboBox fx:id="adatbazisMertekTf" layoutX="148.0" layoutY="653.0" prefHeight="24.0" prefWidth="171.0" />
             <Button layoutX="257.0" layoutY="716.0" mnemonicParsing="false" onAction="#AdatbazisElemHozzaad" text="Hozzáad" />
+            <Button layoutX="177.0" layoutY="716.0" mnemonicParsing="false" onAction="#AdatbazisElemTorlese" text="Töröl" />
          </children>
       </AnchorPane>
    </children>
