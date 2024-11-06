@@ -159,6 +159,8 @@ public class HelloController {
 
 
         Korlatozas ujelem = new Korlatozas();
+
+
         ujelem.setUtszam(Integer.valueOf(adatbazisUtszamTf.getText()));
         ujelem.setKezdet(Float.valueOf(adatbazisKezdetTf.getText()));
         ujelem.setVeg(Float.valueOf(adatbazisVegTf.getText()));
@@ -167,13 +169,38 @@ public class HelloController {
         ujelem.setMeddig(adatbazisMeddigTf.getText());
         ujelem.setSebesseg(Integer.valueOf(adatbazisSebessegTf.getText()));
 
-        Megnevezes megn = session.load(Megnevezes.class, 1);
-        megn.setNev(adatbazisMegnevezesTf.getValue().toString());
-        ujelem.setMegnevezes(megn);
+        System.out.println("keresett megnevezes: " + adatbazisMegnevezesTf.getValue().toString());
+        int index = 0;
+        for(int i = 0; i< megnevezesek.size();i++)
+        {
+            if(megnevezesek.get(i).getNev().equals(adatbazisMegnevezesTf.getValue().toString()))
+            {
+                System.out.println("Qnem egyenlod: " + megnevezesek.get(i).getNev() + " " + adatbazisMegnevezesTf.getValue().toString());
+                System.out.println("TALÁLTAM MEGNEVEZEST");
+                index=i;
+                ujelem.setMegnevezes(megnevezesek.get(i));
+            }
+        }
+        System.out.println("megnevezesid: " + index + " " + megnevezesek.size());
+        //Megnevezes megn = session.load(Megnevezes.class, 3);
+        //ujelem.setMegnevezes(megn);
 
-        Mertek merteke = session.load(Mertek.class, 1);
-        merteke.setNev(adatbazisMertekTf.getValue().toString());
-        ujelem.setMertek(merteke);
+
+        System.out.println("keresett mertek: " + adatbazisMertekTf.getValue().toString());
+        index = 0;
+        for(int i = 0; i< mertekek.size();i++)
+        {
+            if(mertekek.get(i).getNev().equals(adatbazisMertekTf.getValue().toString()))
+            {
+                System.out.println("nem egyenlod: " + mertekek.get(i).getNev() + " " + adatbazisMertekTf.getValue().toString());
+                System.out.println("TALÁLTAM MÉRTÉKET");
+                index=i;
+                ujelem.setMertek(mertekek.get(i));
+            }
+        }
+        System.out.println("mertekid: " + index + " " + mertekek.size());
+        //Mertek merteke = session.load(Mertek.class, 4);
+        //ujelem.setMertek(merteke);
 
         System.out.println("Elotte hossz: " + korlatozasok.size());
 

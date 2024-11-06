@@ -33,7 +33,7 @@ public class Korlatozas {
     @JoinColumn(name = "mertekid")
     private Mertek mertek;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "megnevid")
     private Megnevezes megnevezes;
 
@@ -132,4 +132,5 @@ public class Korlatozas {
     public String toString(){
         return this.getUtszam().toString() + " " + this.getTelepules() + " " + this.getMegnevezes() + " " + this.getMertek() + " " + this.getSebesseg();
     }
+
 }
