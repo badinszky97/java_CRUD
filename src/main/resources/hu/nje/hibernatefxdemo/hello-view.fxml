@@ -51,6 +51,7 @@
             <ComboBox fx:id="adatbazisMertekTf" layoutX="148.0" layoutY="653.0" prefHeight="24.0" prefWidth="171.0" />
             <Button layoutX="257.0" layoutY="716.0" mnemonicParsing="false" onAction="#AdatbazisElemHozzaad" text="Hozzáad" />
             <Button layoutX="177.0" layoutY="716.0" mnemonicParsing="false" onAction="#AdatbazisElemTorlese" text="Töröl" />
+            <Button layoutX="94.0" layoutY="716.0" mnemonicParsing="false" onAction="#AdatbazisElemModositasa" text="Módosít" />
          </children>
       </AnchorPane>
    </children>

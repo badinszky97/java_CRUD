@@ -158,6 +158,30 @@ public class HelloController {
 
     }
 
+    public void AdatbazisElemModositasa()
+    {
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+
+        Korlatozas kijelolt = (Korlatozas)korlTable.getFocusModel().getFocusedItem();
+        kijelolt.setUtszam(Integer.parseInt(adatbazisUtszamTf.getText()));
+        kijelolt.setKezdet(Float.parseFloat(adatbazisKezdetTf.getText()));
+        kijelolt.setVeg(Float.parseFloat(adatbazisVegTf.getText()));
+        kijelolt.setTelepules(adatbazisTelepulesTf.getText());
+        kijelolt.setMettol(adatbazisMettolTf.getText());
+        kijelolt.setMeddig(adatbazisMeddigTf.getText());
+        kijelolt.setSebesseg(Integer.parseInt(adatbazisSebessegTf.getText()));
+
+        session.update(kijelolt);
+        System.out.println(kijelolt);
+        t.commit();
+        session.close();
+        Read();
+        tableFeltolt(korlatozasok);
+        System.out.println("Utana hossz: " + korlatozasok.size());
+        System.out.println("Lista hossz: " + korlTable.getItems().size());
+    }
+
     public void AdatbazisElemKijelol(){
         Korlatozas kijelolt = (Korlatozas)korlTable.getFocusModel().getFocusedItem();
         adatbazisUtszamTf.setText(kijelolt.getUtszam().toString());
