@@ -13,7 +13,7 @@
    <children>
       <AnchorPane prefHeight="754.0" prefWidth="1280.0">
          <children>
-            <Label fx:id="felmpLabel" layoutX="369.0" layoutY="8.0" prefHeight="84.0" prefWidth="64.0" />
+            <Label fx:id="duplampLabel" layoutX="369.0" layoutY="8.0" prefHeight="84.0" prefWidth="64.0" />
             <Label fx:id="mpLabel" layoutX="367.0" layoutY="124.0" prefHeight="99.0" prefWidth="90.0" />
             <TableView fx:id="korlTable" layoutX="457.0" layoutY="24.0" onMouseClicked="#AdatbazisElemKijelol" prefHeight="754.0" prefWidth="809.0">
               <columns>

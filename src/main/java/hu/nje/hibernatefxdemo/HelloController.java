@@ -2,7 +2,6 @@ package hu.nje.hibernatefxdemo;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,9 +21,9 @@ public class HelloController {
      * Párhuzamos programozás feladat változói
      */
     @FXML private Label mpLabel;
-    @FXML private Label felmpLabel;
+    @FXML private Label duplampLabel;
     Integer mp = 0;
-    Integer felmp = 0;
+    Integer duplamp = 0;
 
     /**
      * Adatbázis feladat változói
@@ -64,11 +63,11 @@ public class HelloController {
                         mp++;
                     }));
 
-    Timeline timelinefelmp = new Timeline(
-            new KeyFrame(Duration.seconds(0.5),
+    Timeline timelineduplamp = new Timeline(
+            new KeyFrame(Duration.seconds(2),
                     e -> {
-                        felmpLabel.setText(felmp.toString());
-                        felmp++;
+                        duplampLabel.setText(duplamp.toString());
+                        duplamp++;
                     }));
 
     /**
@@ -85,8 +84,8 @@ public class HelloController {
         timelinemp.setCycleCount(Timeline.INDEFINITE);
         timelinemp.play();
 
-        timelinefelmp.setCycleCount(Timeline.INDEFINITE);
-        timelinefelmp.play();
+        timelineduplamp.setCycleCount(Timeline.INDEFINITE);
+        timelineduplamp.play();
 
         adatbazisMegnevezesTf.getItems().clear();
         for(Megnevezes egy : megnevezesek)
