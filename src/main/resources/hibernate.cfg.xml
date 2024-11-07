@@ -5,8 +5,6 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.url">jdbc:sqlite:/home/bady/hibernate.db</property>
-        <mapping class="hu.nje.hibernatefxdemo.Instructor"/>
-        <mapping class="hu.nje.hibernatefxdemo.Course"/>
         <mapping class="hu.nje.hibernatefxdemo.Mertek"/>
         <mapping class="hu.nje.hibernatefxdemo.Megnevezes"/>
         <mapping class="hu.nje.hibernatefxdemo.Korlatozas"/>
