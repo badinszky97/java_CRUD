@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GUIController {
@@ -55,6 +56,20 @@ public class GUIController {
     @FXML private Button AdatbazisModositButton;
     @FXML private Button AdatbazisTorlesButton;
 
+    @FXML private Button AdatbazisTelepulesSzuresButton;
+    @FXML private Button AdatbazisMegnevezesSzuresButton;
+    @FXML private Button AdatbazisSzamjegySzuresButton;
+    @FXML private Button AdatbazisSebessegSzuresButton;
+
+    @FXML private TextField AdatbazisTelepulesSzuresTextField;
+    @FXML private ComboBox AdatbazisMegnevezesSzuresComboBox;
+    @FXML private RadioButton AdatbazisSzamjegy1;
+    @FXML private RadioButton AdatbazisSzamjegy2;
+    @FXML private RadioButton AdatbazisSzamjegy3;
+    @FXML private RadioButton AdatbazisSzamjegy4;
+    @FXML private RadioButton AdatbazisSzamjegy5;
+    @FXML private CheckBox AdatbazisSebesseg;
+
 
     /**
      * Párhuzamos programozás feladat objektumok
@@ -94,6 +109,7 @@ public class GUIController {
         for(Megnevezes egy : megnevezesek)
         {
             adatbazisMegnevezesTf.getItems().add(egy.toString());
+            AdatbazisMegnevezesSzuresComboBox.getItems().add(egy.toString());
         }
 
         adatbazisMertekTf.getItems().clear();
@@ -278,5 +294,131 @@ public class GUIController {
             korlTable.getItems().add(lista.get(i));
         }
         System.out.println("Lista hossz: " + korlTable.getItems().size());
+    }
+
+    @FXML
+    public void AdatbazisSzuresTelepules()
+    {
+        if(AdatbazisTelepulesSzuresTextField.getText().equals(""))
+        {
+            tableFeltolt(korlatozasok);
+            return;
+        }
+        List<Korlatozas> ujlista = new ArrayList<>();
+        for(int i=0;i<korlatozasok.size();i++)
+        {
+            if(korlatozasok.get(i).getTelepules().equals(AdatbazisTelepulesSzuresTextField.getText()))
+            {
+                ujlista.add(korlatozasok.get(i));
+            }
+        }
+        tableFeltolt(ujlista);
+    }
+    @FXML
+    public void AdatbazisSzuresMegnevezes()
+    {
+
+        List<Korlatozas> ujlista = new ArrayList<>();
+        for(int i=0;i<korlatozasok.size();i++)
+        {
+            if(korlatozasok.get(i).getMegnevezes().getNev().equals(AdatbazisMegnevezesSzuresComboBox.getValue()))
+            {
+                ujlista.add(korlatozasok.get(i));
+            }
+        }
+        tableFeltolt(ujlista);
+    }
+    @FXML
+    public void AdatbazisSzuresSzamjegy()
+    {
+        List<Korlatozas> ujlista = new ArrayList<>();
+        if(AdatbazisSzamjegy1.isSelected())
+        {
+            for(int i=0;i<korlatozasok.size();i++)
+            {
+                if(Integer.valueOf(korlatozasok.get(i).getUtszam()) > 0 && Integer.valueOf(korlatozasok.get(i).getUtszam()) < 10)
+                {
+                    ujlista.add(korlatozasok.get(i));
+                }
+            }
+            tableFeltolt(ujlista);
+            return;
+        }
+
+        if(AdatbazisSzamjegy2.isSelected())
+        {
+            for(int i=0;i<korlatozasok.size();i++)
+            {
+                if(Integer.valueOf(korlatozasok.get(i).getUtszam()) > 9 && Integer.valueOf(korlatozasok.get(i).getUtszam()) < 100)
+                {
+                    ujlista.add(korlatozasok.get(i));
+                }
+            }
+            tableFeltolt(ujlista);
+            return;
+        }
+
+        if(AdatbazisSzamjegy3.isSelected())
+        {
+            for(int i=0;i<korlatozasok.size();i++)
+            {
+                if(Integer.valueOf(korlatozasok.get(i).getUtszam()) > 99 && Integer.valueOf(korlatozasok.get(i).getUtszam()) < 1000)
+                {
+                    ujlista.add(korlatozasok.get(i));
+                }
+            }
+            tableFeltolt(ujlista);
+            return;
+        }
+
+        if(AdatbazisSzamjegy4.isSelected())
+        {
+            for(int i=0;i<korlatozasok.size();i++)
+            {
+                if(Integer.valueOf(korlatozasok.get(i).getUtszam()) > 999 && Integer.valueOf(korlatozasok.get(i).getUtszam()) < 10000)
+                {
+                    ujlista.add(korlatozasok.get(i));
+                }
+            }
+            tableFeltolt(ujlista);
+            return;
+        }
+
+        if(AdatbazisSzamjegy5.isSelected())
+        {
+            for(int i=0;i<korlatozasok.size();i++)
+            {
+                if(Integer.valueOf(korlatozasok.get(i).getUtszam()) > 9999 && Integer.valueOf(korlatozasok.get(i).getUtszam()) < 100000)
+                {
+                    ujlista.add(korlatozasok.get(i));
+                }
+            }
+            tableFeltolt(ujlista);
+            return;
+        }
+    }
+    @FXML
+    public void AdatbazisSzuresSebesseg()
+    {
+        List<Korlatozas> ujlista = new ArrayList<>();
+        for(int i=0;i<korlatozasok.size();i++)
+        {
+            if(AdatbazisSebesseg.isSelected())
+            {
+                if(korlatozasok.get(i).getSebesseg() == 0)
+                {
+                    ujlista.add(korlatozasok.get(i));
+                }
+            }
+            else
+            {
+                if(korlatozasok.get(i).getSebesseg() != 0)
+                {
+                    ujlista.add(korlatozasok.get(i));
+                }
+            }
+
+        }
+        tableFeltolt(ujlista);
     }
 }
