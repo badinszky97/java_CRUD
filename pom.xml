@@ -75,7 +75,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>hu.nje.hibernatefxdemo/hu.nje.hibernatefxdemo.HelloApplication</mainClass>
+                            <mainClass>hu.nje.hibernatefxdemo/hu.nje.hibernatefxdemo.JavaElmeletiBeadando</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

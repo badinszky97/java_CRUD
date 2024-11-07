@@ -13,7 +13,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public class HelloController {
+public class GUIController {
 
 
 
