@@ -21,7 +21,7 @@ public class HelloApplication extends Application {
 
         Scene scene = new Scene(fxmlLoader.load(), 1280, 768);
         controller = fxmlLoader.getController();
-        stage.setTitle("Hello!");
+        stage.setTitle("Java alkalmazások - elméleti beadandó");
         stage.setScene(scene);
         stage.show();
         controller.Init();

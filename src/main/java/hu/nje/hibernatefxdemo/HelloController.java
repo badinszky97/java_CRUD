@@ -51,6 +51,9 @@ public class HelloController {
     @FXML private ComboBox adatbazisMegnevezesTf;
     @FXML private ComboBox adatbazisMertekTf;
     @FXML private TextField adatbazisSebessegTf;
+    @FXML private Button AdatbazisHozzaadButton;
+    @FXML private Button AdatbazisModositButton;
+    @FXML private Button AdatbazisTorlesButton;
 
 
     /**
@@ -114,7 +117,9 @@ public class HelloController {
 
         t.commit();
         session.close();
-
+        AdatbazisTorlesButton.setDisable(false);
+        AdatbazisModositButton.setDisable(false);
+        AdatbazisHozzaadButton.setDisable(false);
     }
 
     /**
@@ -136,6 +141,8 @@ public class HelloController {
         tableFeltolt(korlatozasok);
         System.out.println("Utana hossz: " + korlatozasok.size());
         System.out.println("Lista hossz: " + korlTable.getItems().size());
+        AdatbazisTorlesButton.setDisable(true);
+        AdatbazisModositButton.setDisable(true);
 
     }
 
@@ -181,6 +188,8 @@ public class HelloController {
         Read();
         tableFeltolt(korlatozasok);
         System.out.println("Utana hossz: " + korlatozasok.size());
+        AdatbazisTorlesButton.setDisable(true);
+        AdatbazisModositButton.setDisable(true);
     }
 
     /**
@@ -197,6 +206,9 @@ public class HelloController {
         adatbazisSebessegTf.setText(kijelolt.getSebesseg().toString());
         adatbazisMegnevezesTf.setValue(kijelolt.getMegnevezes().toString());
         adatbazisMertekTf.setValue(kijelolt.getMertek().toString());
+        AdatbazisHozzaadButton.setDisable(false);
+        AdatbazisTorlesButton.setDisable(false);
+        AdatbazisModositButton.setDisable(false);
     }
 
     /**
@@ -242,7 +254,8 @@ public class HelloController {
         Read();
         tableFeltolt(korlatozasok);
         System.out.println("Utana hossz: " + korlatozasok.size());
-
+        AdatbazisTorlesButton.setDisable(true);
+        AdatbazisModositButton.setDisable(true);
     }
 
     /**

@@ -13,9 +13,9 @@
    <children>
       <AnchorPane prefHeight="754.0" prefWidth="1280.0">
          <children>
-            <Label fx:id="duplampLabel" layoutX="369.0" layoutY="8.0" prefHeight="84.0" prefWidth="64.0" />
-            <Label fx:id="mpLabel" layoutX="367.0" layoutY="124.0" prefHeight="99.0" prefWidth="90.0" />
-            <TableView fx:id="korlTable" layoutX="457.0" layoutY="24.0" onMouseClicked="#AdatbazisElemKijelol" prefHeight="754.0" prefWidth="809.0">
+            <Label fx:id="duplampLabel" layoutX="155.0" layoutY="55.0" prefHeight="24.0" prefWidth="64.0" text="1" />
+            <Label fx:id="mpLabel" layoutX="155.0" layoutY="87.0" prefHeight="24.0" prefWidth="90.0" text="1" />
+            <TableView fx:id="korlTable" layoutX="457.0" layoutY="24.0" onMouseClicked="#AdatbazisElemKijelol" prefHeight="713.0" prefWidth="809.0">
               <columns>
                 <TableColumn fx:id="utszamCol" prefWidth="75.0" text="utszam" />
                 <TableColumn fx:id="kezdetCol" prefWidth="75.0" text="kezd" />
@@ -23,32 +23,36 @@
                   <TableColumn fx:id="telepulesCol" prefWidth="75.0" text="telepules" />
                   <TableColumn fx:id="mettolCol" prefWidth="75.0" text="mettol" />
                   <TableColumn fx:id="meddigCol" prefWidth="75.0" text="meddig" />
-                  <TableColumn fx:id="megnevezesCol" prefWidth="75.0" text="megnevezes" />
-                  <TableColumn fx:id="mertekCol" prefWidth="75.0" text="mertek" />
-                  <TableColumn fx:id="sebessegCol" prefWidth="75.0" text="sebesseg" />
+                  <TableColumn fx:id="megnevezesCol" prefWidth="149.0" text="megnevezes" />
+                  <TableColumn fx:id="mertekCol" prefWidth="90.0" text="mertek" />
+                  <TableColumn fx:id="sebessegCol" prefWidth="60.0" text="sebesseg" />
               </columns>
             </TableView>
-            <Label fx:id="mpLabel1" layoutX="29.0" layoutY="497.0" prefHeight="16.0" prefWidth="90.0" text="Útszám:" />
-            <Label fx:id="mpLabel11" layoutX="29.0" layoutY="521.0" prefHeight="16.0" prefWidth="90.0" text="Kezdet:" />
-            <Label fx:id="mpLabel12" layoutX="29.0" layoutY="544.0" prefHeight="16.0" prefWidth="90.0" text="Vég:" />
-            <Label fx:id="mpLabel13" layoutX="29.0" layoutY="566.0" prefHeight="16.0" prefWidth="90.0" text="Település:" />
-            <Label fx:id="mpLabel14" layoutX="29.0" layoutY="588.0" prefHeight="16.0" prefWidth="90.0" text="Mettől:" />
-            <Label fx:id="mpLabel15" layoutX="29.0" layoutY="610.0" prefHeight="16.0" prefWidth="90.0" text="Meddig:" />
-            <Label fx:id="mpLabel16" layoutX="29.0" layoutY="636.0" prefHeight="16.0" prefWidth="90.0" text="Megnevezés:" />
-            <Label fx:id="mpLabel17" layoutX="29.0" layoutY="658.0" prefHeight="16.0" prefWidth="90.0" text="Mérték:" />
-            <Label fx:id="mpLabel18" layoutX="29.0" layoutY="681.0" prefHeight="16.0" prefWidth="90.0" text="Sebesség:" />
-            <TextField fx:id="adatbazisUtszamTf" layoutX="148.0" layoutY="492.0" />
-            <TextField fx:id="adatbazisKezdetTf" layoutX="148.0" layoutY="516.0" />
-            <TextField fx:id="adatbazisVegTf" layoutX="148.0" layoutY="539.0" />
-            <TextField fx:id="adatbazisTelepulesTf" layoutX="148.0" layoutY="562.0" />
-            <TextField fx:id="adatbazisMettolTf" layoutX="148.0" layoutY="585.0" />
-            <TextField fx:id="adatbazisMeddigTf" layoutX="148.0" layoutY="607.0" />
-            <TextField fx:id="adatbazisSebessegTf" layoutX="148.0" layoutY="677.0" />
-            <ComboBox fx:id="adatbazisMegnevezesTf" layoutX="148.0" layoutY="629.0" prefHeight="24.0" prefWidth="171.0" />
-            <ComboBox fx:id="adatbazisMertekTf" layoutX="148.0" layoutY="653.0" prefHeight="24.0" prefWidth="171.0" />
-            <Button layoutX="257.0" layoutY="716.0" mnemonicParsing="false" onAction="#AdatbazisElemHozzaad" text="Hozzáad" />
-            <Button layoutX="177.0" layoutY="716.0" mnemonicParsing="false" onAction="#AdatbazisElemTorlese" text="Töröl" />
-            <Button layoutX="94.0" layoutY="716.0" mnemonicParsing="false" onAction="#AdatbazisElemModositasa" text="Módosít" />
+            <Label fx:id="mpLabel1" layoutX="29.0" layoutY="247.0" prefHeight="16.0" prefWidth="90.0" text="Útszám:" />
+            <Label fx:id="mpLabel11" layoutX="29.0" layoutY="271.0" prefHeight="16.0" prefWidth="90.0" text="Kezdet:" />
+            <Label fx:id="mpLabel12" layoutX="29.0" layoutY="294.0" prefHeight="16.0" prefWidth="90.0" text="Vég:" />
+            <Label fx:id="mpLabel13" layoutX="29.0" layoutY="316.0" prefHeight="16.0" prefWidth="90.0" text="Település:" />
+            <Label fx:id="mpLabel14" layoutX="29.0" layoutY="338.0" prefHeight="16.0" prefWidth="90.0" text="Mettől:" />
+            <Label fx:id="mpLabel15" layoutX="29.0" layoutY="360.0" prefHeight="16.0" prefWidth="90.0" text="Meddig:" />
+            <Label fx:id="mpLabel16" layoutX="29.0" layoutY="386.0" prefHeight="16.0" prefWidth="90.0" text="Megnevezés:" />
+            <Label fx:id="mpLabel17" layoutX="29.0" layoutY="408.0" prefHeight="16.0" prefWidth="90.0" text="Mérték:" />
+            <Label fx:id="mpLabel18" layoutX="29.0" layoutY="431.0" prefHeight="16.0" prefWidth="90.0" text="Sebesség:" />
+            <TextField fx:id="adatbazisUtszamTf" layoutX="148.0" layoutY="242.0" />
+            <TextField fx:id="adatbazisKezdetTf" layoutX="148.0" layoutY="266.0" />
+            <TextField fx:id="adatbazisVegTf" layoutX="148.0" layoutY="289.0" />
+            <TextField fx:id="adatbazisTelepulesTf" layoutX="148.0" layoutY="312.0" />
+            <TextField fx:id="adatbazisMettolTf" layoutX="148.0" layoutY="335.0" />
+            <TextField fx:id="adatbazisMeddigTf" layoutX="148.0" layoutY="357.0" />
+            <TextField fx:id="adatbazisSebessegTf" layoutX="148.0" layoutY="427.0" />
+            <ComboBox fx:id="adatbazisMegnevezesTf" layoutX="148.0" layoutY="379.0" prefHeight="24.0" prefWidth="171.0" />
+            <ComboBox fx:id="adatbazisMertekTf" layoutX="148.0" layoutY="403.0" prefHeight="24.0" prefWidth="171.0" />
+            <Button fx:id="AdatbazisHozzaadButton" disable="true" layoutX="220.0" layoutY="466.0" mnemonicParsing="false" onAction="#AdatbazisElemHozzaad" prefHeight="24.0" prefWidth="84.0" text="Hozzáad" />
+            <Button fx:id="AdatbazisTorlesButton" disable="true" layoutX="131.0" layoutY="466.0" mnemonicParsing="false" onAction="#AdatbazisElemTorlese" prefHeight="24.0" prefWidth="84.0" text="Töröl" />
+            <Button fx:id="AdatbazisModositButton" disable="true" layoutX="42.0" layoutY="466.0" mnemonicParsing="false" onAction="#AdatbazisElemModositasa" prefHeight="24.0" prefWidth="84.0" text="Módosít" />
+            <Label layoutX="62.0" layoutY="55.0" prefHeight="24.0" prefWidth="90.0" text="1 mp Label:" />
+            <Label layoutX="62.0" layoutY="87.0" prefHeight="24.0" prefWidth="90.0" text="2 mp Label:" />
+            <Label layoutX="32.0" layoutY="24.0" prefHeight="24.0" prefWidth="262.0" text="Párhuzamos programozás feladat:" />
+            <Label layoutX="102.0" layoutY="185.0" prefHeight="24.0" prefWidth="171.0" text="Adatbázis feladat:" />
          </children>
       </AnchorPane>
    </children>
