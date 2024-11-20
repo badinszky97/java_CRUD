@@ -12,13 +12,14 @@ public class JavaElmeletiBeadando extends Application {
     GUIController controller;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(JavaElmeletiBeadando.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(JavaElmeletiBeadando.class.getResource("views/main_layout.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 1280, 768);
         controller = fxmlLoader.getController();
         stage.setTitle("Java alkalmazások - elméleti beadandó");
         stage.setScene(scene);
         stage.show();
+        controller.loadHelloView(); //Ez a default screen ezért rögtön betöltöm init előtt.
         controller.Init();
     }
 

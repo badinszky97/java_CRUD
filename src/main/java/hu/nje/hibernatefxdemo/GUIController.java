@@ -3,14 +3,18 @@ package hu.nje.hibernatefxdemo;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +74,8 @@ public class GUIController {
     @FXML private RadioButton AdatbazisSzamjegy5;
     @FXML private CheckBox AdatbazisSebesseg;
 
+//    Main_layout a menüsornak minden oldalon, a contentArea-ba tölti be a kiválasztott fxml-t.
+    @FXML private VBox contentArea;
 
     /**
      * Párhuzamos programozás feladat objektumok
@@ -421,4 +427,29 @@ public class GUIController {
         }
         tableFeltolt(ujlista);
     }
+
+    ///// *************** View váltások *****************
+    @FXML
+    public void loadHelloView() throws IOException {
+        loadView("views/adatbazis/hello-view.fxml");
+        Init();
+    }
+
+    @FXML
+    public void loadSoapLetoltesView() throws IOException {
+        loadView("views/soap/soap-letoltes.fxml");
+    }
+
+//    Betölti a paraméterként átadott fxml fájlt a main_layout fájlba.
+    public void loadView(String fxmlFile) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+
+//      Ugyanazt a GUIControllert használja mindegyik subView, szebb lenne a külön oldalakat külön controllerbe tenni de most igy maradt.
+        loader.setController(this);
+        Node view = loader.load();
+        contentArea.getChildren().setAll(view);
+    }
+
+    ///// *************** View váltások VÉGE *****************
+
 }

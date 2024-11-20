@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="hu.nje.hibernatefxdemo.GUIController" prefHeight="800.0" prefWidth="1280.0">
+<top>
+    <MenuBar>
+        <Menu text="Adatbázis">
+            <MenuItem text="Adatbázis" onAction="#loadHelloView"/>
+        </Menu>
+        <Menu text="SoapKliens">
+            <MenuItem text="Letöltés" onAction="#loadSoapLetoltesView"/>
+            <MenuItem text="Letöltés2" />
+            <MenuItem text="Grafikon" />
+        </Menu>
+        <Menu text="Forex">
+            <MenuItem text="Számlainformációk" />
+            <MenuItem text="Aktuális árak" />
+            <MenuItem text="Historikus árak" />
+            <MenuItem text="Pozíció nyitás" />
+            <MenuItem text="Pozíció zárás" />
+            <MenuItem text="Nyitott pozíciók" />
+        </Menu>
+    </MenuBar>
+</top>
+<center>
+    <VBox fx:id="contentArea"/>
+</center>
+</BorderPane>
