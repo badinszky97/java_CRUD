@@ -14,17 +14,14 @@
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <children>
         <AnchorPane prefHeight="754.0" prefWidth="1280.0">
-            <TableView fx:id="accountDetail" layoutX="457.0" layoutY="24.0" prefHeight="713.0" prefWidth="809.0">
+            <TableView fx:id="accountDetailTbl" layoutX="457.0" layoutY="24.0" prefHeight="713.0" prefWidth="809.0">
                 <columns>
-                    <TableColumn fx:id="accountId" prefWidth="120.0" text="accountId"/>
-                    <TableColumn fx:id="currency" prefWidth="120.0" text="currency"/>
-                    <TableColumn fx:id="balance" prefWidth="160.0" text="balance"/>
-                    <TableColumn fx:id="createdTime" prefWidth="160.0" text="createdTime"/>
-                    <TableColumn fx:id="guaranteedStopLossOrderMode" prefWidth="240.0" text="guaranteedStopLossOrderMode"/>
+                    <TableColumn fx:id="KeyColumn" prefWidth="300.0" text="KeyColumn"/>
+                    <TableColumn fx:id="ValueColumn" prefWidth="300.0" text="ValueColumn"/>
                 </columns>
             </TableView>
             <Button fx:id="getForexAccount" layoutX="42.0" layoutY="50.0" mnemonicParsing="false"
-                     prefHeight="24.0" prefWidth="140.0" text="Számla infók lekérése" />
+                     onAction="#forexGetSzamlaInfo" prefHeight="24.0" prefWidth="140.0" text="Számla infók lekérése" />
         </AnchorPane>
     </children>
 </AnchorPane>

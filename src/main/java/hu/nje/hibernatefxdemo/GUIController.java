@@ -84,14 +84,14 @@ public class GUIController {
 //  Main_layout a menüsornak minden oldalon, a contentArea-ba tölti be a kiválasztott fxml-t.
     @FXML private VBox contentArea;
 
-//  Forex menu változók
-    List<Korlatozas> accountDetail;
-    @FXML private TableView accountDetailTbl;
-    @FXML private TableColumn<accountDetailTbl, String> accountId;
-    @FXML private TableColumn<accountDetailTbl, String> currency;
-    @FXML private TableColumn<accountDetailTbl, Float> balance;
-    @FXML private TableColumn<accountDetailTbl, DateTime> createdTime;
-    @FXML private TableColumn<accountDetailTbl, String> guaranteedStopLossOrderMode;
+////  Forex menu változók
+//    List<Korlatozas> accountDetail;
+//    @FXML private TableView accountDetailTbl;
+//    @FXML private TableColumn<accountDetailTbl, String> accountId;
+//    @FXML private TableColumn<accountDetailTbl, String> currency;
+//    @FXML private TableColumn<accountDetailTbl, Float> balance;
+//    @FXML private TableColumn<accountDetailTbl, DateTime> createdTime;
+//    @FXML private TableColumn<accountDetailTbl, String> guaranteedStopLossOrderMode;
 
     /**
      * Párhuzamos programozás feladat objektumok
@@ -482,17 +482,6 @@ public class GUIController {
                     AccountID("101-004-30405209-001")).getAccount();
             System.out.println(summary);
 
-            accountId.setCellValueFactory(new PropertyValueFactory<>("accountId"));
-            currency.setCellValueFactory(new PropertyValueFactory<>("currency"));
-            balance.setCellValueFactory(new PropertyValueFactory<>("balance"));
-            createdTime.setCellValueFactory(new PropertyValueFactory<>("createdTime"));
-            guaranteedStopLossOrderMode.setCellValueFactory(new PropertyValueFactory<>("guaranteedStopLossOrderMode"));
-
-            for(int i=0;i<lista.size();i++)
-            {
-                korlTable.getItems().add(lista.get(i));
-            }
-            System.out.println("Lista hossz: " + korlTable.getItems().size());
 
         } catch (Exception e) {
             e.printStackTrace();
