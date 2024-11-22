@@ -1,5 +1,7 @@
 package hu.nje.hibernatefxdemo;
 
+import MNB_soap.MNBArfolyamServiceSoap;
+import MNB_soap.GetCurrenciesRequestBody;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

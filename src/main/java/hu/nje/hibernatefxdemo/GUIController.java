@@ -1,5 +1,11 @@
 package hu.nje.hibernatefxdemo;
 
+import MNB_soap.MNBArfolyamServiceSoap;
+import MNB_soap.MNBArfolyamServiceSoapImpl;
+import com.oanda.v20.Context;
+import com.oanda.v20.account.AccountID;
+import com.oanda.v20.account.AccountSummary;
+import com.oanda.v20.primitives.DateTime;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -14,6 +20,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import javax.sound.midi.SysexMessage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,8 +81,17 @@ public class GUIController {
     @FXML private RadioButton AdatbazisSzamjegy5;
     @FXML private CheckBox AdatbazisSebesseg;
 
-//    Main_layout a menüsornak minden oldalon, a contentArea-ba tölti be a kiválasztott fxml-t.
+//  Main_layout a menüsornak minden oldalon, a contentArea-ba tölti be a kiválasztott fxml-t.
     @FXML private VBox contentArea;
+
+//  Forex menu változók
+    List<Korlatozas> accountDetail;
+    @FXML private TableView accountDetailTbl;
+    @FXML private TableColumn<accountDetailTbl, String> accountId;
+    @FXML private TableColumn<accountDetailTbl, String> currency;
+    @FXML private TableColumn<accountDetailTbl, Float> balance;
+    @FXML private TableColumn<accountDetailTbl, DateTime> createdTime;
+    @FXML private TableColumn<accountDetailTbl, String> guaranteedStopLossOrderMode;
 
     /**
      * Párhuzamos programozás feladat objektumok
@@ -428,6 +444,61 @@ public class GUIController {
         tableFeltolt(ujlista);
     }
 
+    @FXML
+    public void soapLetoltesAll()   {
+        new Thread(() -> {
+            System.out.println("soapLetoltesAll");
+            MNBArfolyamServiceSoapImpl impl = new MNBArfolyamServiceSoapImpl();
+            MNBArfolyamServiceSoap service = impl.getCustomBindingMNBArfolyamServiceSoap();
+            try {
+                           System.out.println(service.getInfo());
+                           System.out.println(service.getCurrentExchangeRates());
+                           System.out.println(service.getExchangeRates("2022-08-14","2022-09-14","EUR"));
+                       } catch (Exception e) {
+                           System.err.print(e.toString());
+                       }
+        }).start();
+
+//        System.out.println(impl);
+//        MNBArfolyamServiceSoap service = impl.getCustomBindingMNBArfolyamServiceSoap();
+//        try {
+//            System.out.println(service.getInfo());
+////            System.out.println(service.getCurrentExchangeRates());
+////            System.out.println(service.getExchangeRates("2022-08-14","2022-09-14","EUR"));
+//        } catch (Exception e) {
+//            System.err.print(e.toString());
+//        }
+    }
+
+//    *************** Forex menu Actions *****************
+//    Lekéri az account adatokat és betölti a táblába
+    @FXML
+    public void forexGetSzamlaInfo()    {
+        System.out.println("forexGetSzamlaInfo");
+        var ctx = new Context("https://api-fxpractice.oanda.com",
+                "18b2ce5ab82d691bb718b784bd7f9e2e-f998c71868f62d26cef502d8935b3493");
+        try {
+            AccountSummary summary = ctx.account.summary(new
+                    AccountID("101-004-30405209-001")).getAccount();
+            System.out.println(summary);
+
+            accountId.setCellValueFactory(new PropertyValueFactory<>("accountId"));
+            currency.setCellValueFactory(new PropertyValueFactory<>("currency"));
+            balance.setCellValueFactory(new PropertyValueFactory<>("balance"));
+            createdTime.setCellValueFactory(new PropertyValueFactory<>("createdTime"));
+            guaranteedStopLossOrderMode.setCellValueFactory(new PropertyValueFactory<>("guaranteedStopLossOrderMode"));
+
+            for(int i=0;i<lista.size();i++)
+            {
+                korlTable.getItems().add(lista.get(i));
+            }
+            System.out.println("Lista hossz: " + korlTable.getItems().size());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     ///// *************** View váltások *****************
     @FXML
     public void loadHelloView() throws IOException {
@@ -438,6 +509,11 @@ public class GUIController {
     @FXML
     public void loadSoapLetoltesView() throws IOException {
         loadView("views/soap/soap-letoltes.fxml");
+    }
+
+    @FXML
+    public void loadForexView() throws IOException {
+        loadView("views/forex/forex-szamlainfo.fxml");
     }
 
 //    Betölti a paraméterként átadott fxml fájlt a main_layout fájlba.
