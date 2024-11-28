@@ -35,7 +35,7 @@ import java.util.List;
 public class GUIController {
 
 
-
+    private final OandaConfig oandaConfig = new OandaConfig();
     /**
      * Párhuzamos programozás feladat változói
      */
@@ -483,29 +483,34 @@ public class GUIController {
     @FXML
     public void forexGetSzamlaInfo()    {
         System.out.println("forexGetSzamlaInfo");
-        Context ctx = new Context(oandaConfig.URI, oandaConfig.TOKEN);
-        KeyColumn.setCellValueFactory(new PropertyValueFactory<>("KeyColumn"));
-        ValueColumn.setCellValueFactory(new PropertyValueFactory<>("ValueColumn"));
+        columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        columnValue.setCellValueFactory(cellData -> cellData.getValue().valueProperty());
+
+        accountTableView.setItems(FXCollections.observableArrayList(oandaService.accountInformation()));
+
+        // Context ctx = new Context(oandaConfig.URI, oandaConfig.TOKEN);
+        // KeyColumn.setCellValueFactory(new PropertyValueFactory<>("KeyColumn"));
+        // ValueColumn.setCellValueFactory(new PropertyValueFactory<>("ValueColumn"));
 
         
 
-        List<oandaAccount> accountData = new ArrayList<>();
-        accountDetailTbl.getItems().clear();
-        try {
-            AccountSummary summary = ctx.account.summary(new
-                    AccountID(oandaConfig.AccountID)).getAccount();
+        // List<oandaAccount> accountData = new ArrayList<>();
+        // accountDetailTbl.getItems().clear();
+        // try {
+        //     AccountSummary summary = ctx.account.summary(new
+        //             AccountID(oandaConfig.AccountID)).getAccount();
 
-            String string = summary.toString().replace(")","").replace("AccountSummary(","");
-            String[] parts = string.split(", ");
+        //     String string = summary.toString().replace(")","").replace("AccountSummary(","");
+        //     String[] parts = string.split(", ");
             
-            for (String part : parts) {
-                String[] keyValue = part.split("=");
-                if (keyValue.length == 2) {
-                    accountData.add(new KeyValue(keyValue[0].trim(), keyValue[1].trim()));
-                }
-            }
-            accountDetailTbl.getItems().clear();
-            accountDetailTbl.getItems().addAll(accountData);
+        //     for (String part : parts) {
+        //         String[] keyValue = part.split("=");
+        //         if (keyValue.length == 2) {
+        //             accountData.add(new KeyValue(keyValue[0].trim(), keyValue[1].trim()));
+        //         }
+        //     }
+        //     accountDetailTbl.getItems().clear();
+        //     accountDetailTbl.getItems().addAll(accountData);
             // for(int i = 0; i< parts.length;i++)
             // {
             //     // accountDetailTbl.getItems().add(parts[i].replace("=", " ").toString());

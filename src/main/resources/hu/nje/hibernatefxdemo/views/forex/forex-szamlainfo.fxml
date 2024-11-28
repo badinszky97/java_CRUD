@@ -13,11 +13,19 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <children>
+    <Label layoutX="282.0" prefHeight="40.0" prefWidth="267.0" text="Account"></Label>
         <AnchorPane prefHeight="754.0" prefWidth="1280.0">
             <TableView fx:id="accountDetailTbl" layoutX="457.0" layoutY="24.0" prefHeight="713.0" prefWidth="809.0">
                 <columns>
-                    <TableColumn fx:id="KeyColumn" prefWidth="300.0" text="KeyColumn"/>
-                    <TableColumn fx:id="ValueColumn" prefWidth="300.0" text="ValueColumn"/>
+                    <TableColumn fx:id="KeyColumn" prefWidth="300.0" text="KeyColumn">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="name" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="ValueColumn" prefWidth="300.0" text="ValueColumn">
+                    <cellValueFactory>
+                                    <PropertyValueFactory property="value" />
+                                </cellValueFactory></TableColumn>
                 </columns>
             </TableView>
             <Button fx:id="getForexAccount" layoutX="42.0" layoutY="50.0" mnemonicParsing="false"
