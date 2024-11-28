@@ -24,11 +24,6 @@ public class JavaElmeletiBeadando extends Application {
         controller.loadHelloView(); //Ez a default screen ezért rögtön betöltöm init előtt.
         controller.Init();
     }
-
-
-
-
-
     public static void main(String[] args) {
         launch();
     }

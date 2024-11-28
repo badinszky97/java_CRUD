@@ -2,12 +2,18 @@ package hu.nje.hibernatefxdemo;
 
 import MNB_soap.MNBArfolyamServiceSoap;
 import MNB_soap.MNBArfolyamServiceSoapImpl;
+
 import com.oanda.v20.Context;
+import com.oanda.v20.ContextBuilder;
 import com.oanda.v20.account.AccountID;
 import com.oanda.v20.account.AccountSummary;
 import com.oanda.v20.primitives.DateTime;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -22,6 +28,7 @@ import org.hibernate.cfg.Configuration;
 
 import javax.sound.midi.SysexMessage;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,14 +91,14 @@ public class GUIController {
 //  Main_layout a menüsornak minden oldalon, a contentArea-ba tölti be a kiválasztott fxml-t.
     @FXML private VBox contentArea;
 
-////  Forex menu változók
-//    List<Korlatozas> accountDetail;
-//    @FXML private TableView accountDetailTbl;
-//    @FXML private TableColumn<accountDetailTbl, String> accountId;
-//    @FXML private TableColumn<accountDetailTbl, String> currency;
-//    @FXML private TableColumn<accountDetailTbl, Float> balance;
-//    @FXML private TableColumn<accountDetailTbl, DateTime> createdTime;
-//    @FXML private TableColumn<accountDetailTbl, String> guaranteedStopLossOrderMode;
+//  Forex menu változók
+   @FXML private TableView accountDetailTbl;
+   List<oandaAccount> oandaAccountsresult;
+   @FXML private TableColumn<KeyValue, String> KeyColumn;
+   @FXML private TableColumn<KeyValue, String> ValueColumn;
+   @FXML private TableView<Item> accountTableView;
+   @FXML private TableColumn<Item, String> columnName, columnValue;
+   
 
     /**
      * Párhuzamos programozás feladat objektumok
@@ -313,6 +320,7 @@ public class GUIController {
         korlTable.getItems().clear();
         for(int i=0;i<lista.size();i++)
         {
+            System.out.println(lista.get(i));
             korlTable.getItems().add(lista.get(i));
         }
         System.out.println("Lista hossz: " + korlTable.getItems().size());
@@ -475,13 +483,36 @@ public class GUIController {
     @FXML
     public void forexGetSzamlaInfo()    {
         System.out.println("forexGetSzamlaInfo");
-        var ctx = new Context("https://api-fxpractice.oanda.com",
-                "18b2ce5ab82d691bb718b784bd7f9e2e-f998c71868f62d26cef502d8935b3493");
+        Context ctx = new Context(oandaConfig.URI, oandaConfig.TOKEN);
+        KeyColumn.setCellValueFactory(new PropertyValueFactory<>("KeyColumn"));
+        ValueColumn.setCellValueFactory(new PropertyValueFactory<>("ValueColumn"));
+
+        
+
+        List<oandaAccount> accountData = new ArrayList<>();
+        accountDetailTbl.getItems().clear();
         try {
             AccountSummary summary = ctx.account.summary(new
-                    AccountID("101-004-30405209-001")).getAccount();
-            System.out.println(summary);
+                    AccountID(oandaConfig.AccountID)).getAccount();
 
+            String string = summary.toString().replace(")","").replace("AccountSummary(","");
+            String[] parts = string.split(", ");
+            
+            for (String part : parts) {
+                String[] keyValue = part.split("=");
+                if (keyValue.length == 2) {
+                    accountData.add(new KeyValue(keyValue[0].trim(), keyValue[1].trim()));
+                }
+            }
+            accountDetailTbl.getItems().clear();
+            accountDetailTbl.getItems().addAll(accountData);
+            // for(int i = 0; i< parts.length;i++)
+            // {
+            //     // accountDetailTbl.getItems().add(parts[i].replace("=", " ").toString());
+                
+            //     System.out.println(parts[i].replace("=", " ").toString());
+            // }
+            
 
         } catch (Exception e) {
             e.printStackTrace();
