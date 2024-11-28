@@ -92,12 +92,9 @@ public class GUIController {
     @FXML private VBox contentArea;
 
 //  Forex menu változók
-   @FXML private TableView accountDetailTbl;
-   List<oandaAccount> oandaAccountsresult;
-   @FXML private TableColumn<KeyValue, String> KeyColumn;
-   @FXML private TableColumn<KeyValue, String> ValueColumn;
-   @FXML private TableView<Item> accountTableView;
-   @FXML private TableColumn<Item, String> columnName, columnValue;
+List<oandaAccount> oandaAccountsresult;
+    @FXML private TableView<Item> accountDetailTbl;
+    @FXML private TableColumn<Item, String> KeyColumn, ValueColumn;
    
 
     /**
@@ -320,7 +317,6 @@ public class GUIController {
         korlTable.getItems().clear();
         for(int i=0;i<lista.size();i++)
         {
-            System.out.println(lista.get(i));
             korlTable.getItems().add(lista.get(i));
         }
         System.out.println("Lista hossz: " + korlTable.getItems().size());
@@ -479,47 +475,15 @@ public class GUIController {
     }
 
 //    *************** Forex menu Actions *****************
-//    Lekéri az account adatokat és betölti a táblába
+    //    Lekéri az account adatokat és betölti a táblába
     @FXML
-    public void forexGetSzamlaInfo()    {
-        System.out.println("forexGetSzamlaInfo");
-        columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        columnValue.setCellValueFactory(cellData -> cellData.getValue().valueProperty());
-
-        accountTableView.setItems(FXCollections.observableArrayList(oandaService.accountInformation()));
-
-        // Context ctx = new Context(oandaConfig.URI, oandaConfig.TOKEN);
-        // KeyColumn.setCellValueFactory(new PropertyValueFactory<>("KeyColumn"));
-        // ValueColumn.setCellValueFactory(new PropertyValueFactory<>("ValueColumn"));
-
-        
-
-        // List<oandaAccount> accountData = new ArrayList<>();
-        // accountDetailTbl.getItems().clear();
-        // try {
-        //     AccountSummary summary = ctx.account.summary(new
-        //             AccountID(oandaConfig.AccountID)).getAccount();
-
-        //     String string = summary.toString().replace(")","").replace("AccountSummary(","");
-        //     String[] parts = string.split(", ");
-            
-        //     for (String part : parts) {
-        //         String[] keyValue = part.split("=");
-        //         if (keyValue.length == 2) {
-        //             accountData.add(new KeyValue(keyValue[0].trim(), keyValue[1].trim()));
-        //         }
-        //     }
-        //     accountDetailTbl.getItems().clear();
-        //     accountDetailTbl.getItems().addAll(accountData);
-            // for(int i = 0; i< parts.length;i++)
-            // {
-            //     // accountDetailTbl.getItems().add(parts[i].replace("=", " ").toString());
-                
-            //     System.out.println(parts[i].replace("=", " ").toString());
-            // }
-            
-
-        } catch (Exception e) {
+    public void forexGetSzamlaInfo() {
+        try {
+            KeyColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+            ValueColumn.setCellValueFactory(cellData -> cellData.getValue().valueProperty());
+            accountDetailTbl.setItems(FXCollections.observableArrayList(oandaConfig.accountInformation()));
+        }
+        catch(Exception e){
             e.printStackTrace();
         }
     }
