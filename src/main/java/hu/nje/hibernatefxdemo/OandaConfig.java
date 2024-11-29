@@ -27,7 +27,6 @@ public class OandaConfig {
     public static final String OANDA_URL = "https://api-fxpractice.oanda.com";
     public static final String OANDA_TOKEN = "18b2ce5ab82d691bb718b784bd7f9e2e-f998c71868f62d26cef502d8935b3493";
     public static final AccountID OANDA_ACCOUNT_ID = new AccountID("101-004-30405209-001");
-    public final List<String> defaultCurrencyCodes = List.of("EUR", "USD", "JPY", "GBP", "CHF", "HUF");
     private final Context context;
     private final AccountID accountID;
 
