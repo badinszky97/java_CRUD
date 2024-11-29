@@ -8,12 +8,15 @@ import com.oanda.v20.ContextBuilder;
 import com.oanda.v20.account.AccountID;
 import com.oanda.v20.account.AccountSummary;
 import com.oanda.v20.primitives.DateTime;
+import com.oanda.v20.trade.Trade;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -30,6 +33,7 @@ import javax.sound.midi.SysexMessage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GUIController {
@@ -92,11 +96,13 @@ public class GUIController {
     @FXML private VBox contentArea;
 
 //  Forex menu változók
-List<oandaAccount> oandaAccountsresult;
+    List<oandaAccount> oandaAccountsresult;
     @FXML private TableView<Item> accountDetailTbl;
     @FXML private TableColumn<Item, String> KeyColumn, ValueColumn;
-   
-
+    @FXML private ComboBox<String> devizaParCombo;
+    @FXML private TableView<Trade> openPositionTbl;
+    @FXML private ComboBox<String> baseCurrencyComboBox, targetCurrencyComboBox, directionComboBox;
+    @FXML private TextField amountTextField, closePositionTxt;
     /**
      * Párhuzamos programozás feladat objektumok
      */
@@ -449,29 +455,19 @@ List<oandaAccount> oandaAccountsresult;
     }
 
     @FXML
-    public void soapLetoltesAll()   {
+    public void soapLetoltesAll() {
         new Thread(() -> {
             System.out.println("soapLetoltesAll");
             MNBArfolyamServiceSoapImpl impl = new MNBArfolyamServiceSoapImpl();
             MNBArfolyamServiceSoap service = impl.getCustomBindingMNBArfolyamServiceSoap();
             try {
-                           System.out.println(service.getInfo());
-                           System.out.println(service.getCurrentExchangeRates());
-                           System.out.println(service.getExchangeRates("2022-08-14","2022-09-14","EUR"));
-                       } catch (Exception e) {
-                           System.err.print(e.toString());
-                       }
+                System.out.println(service.getInfo());
+                System.out.println(service.getCurrentExchangeRates());
+                System.out.println(service.getExchangeRates("2022-08-14", "2022-09-14", "EUR"));
+            } catch (Exception e) {
+                System.err.print(e.toString());
+            }
         }).start();
-
-//        System.out.println(impl);
-//        MNBArfolyamServiceSoap service = impl.getCustomBindingMNBArfolyamServiceSoap();
-//        try {
-//            System.out.println(service.getInfo());
-////            System.out.println(service.getCurrentExchangeRates());
-////            System.out.println(service.getExchangeRates("2022-08-14","2022-09-14","EUR"));
-//        } catch (Exception e) {
-//            System.err.print(e.toString());
-//        }
     }
 
 //    *************** Forex menu Actions *****************
@@ -488,22 +484,112 @@ List<oandaAccount> oandaAccountsresult;
         }
     }
 
+    @FXML
+    public void forexGetActualPrice()   {
+        if (devizaParCombo.getValue() != null) {
+            try {
+                List<String> instruments = new ArrayList<>(Arrays.asList(devizaParCombo.getValue().toString()));
+                KeyColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+                ValueColumn.setCellValueFactory(cellData -> cellData.getValue().valueProperty());
+                accountDetailTbl.setItems(FXCollections.observableArrayList(oandaConfig.getActualPrice(instruments)));
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        else    {
+            showErrorDialog("Nincs kiválasztva devizapár!");
+        }
+    }
+    @FXML
+    private void oandaOpenPos()    {
+        final String baseCurrency = baseCurrencyComboBox.getValue();
+        final String targetCurrency = targetCurrencyComboBox.getValue();
+        final String amount = amountTextField.getText();
+        final String direction = directionComboBox.getValue();
+        if (baseCurrency == null) {
+            showErrorDialog("Nem választottál ki alapdevizát!");
+            return;
+        }
+        if (targetCurrency == null) {
+            showErrorDialog("Nem választottál ki céldevizát!");
+            return;
+        }
+        if (amount == null || !amount.matches("\\d+(\\.\\d+)?")) {
+            showErrorDialog("A mennyiségnek csak számokat adj meg!");
+            return;
+        }
+        if (direction == null) {
+            showErrorDialog("Kötelező directiont megadni!");
+            return;
+        }
+
+        final String instrument = baseCurrency + "_" + targetCurrency;
+        oandaConfig.setOpenPosition(instrument, Double.parseDouble(amount));
+        showInfoDialog("Pozició nyitás sikeres!");
+    }
+
+    @FXML
+    private void oandaClosePos(ActionEvent actionEvent) {
+        final String positionId = closePositionTxt.getText();
+        if (positionId == null) {
+            showErrorDialog("Nem adtál meg ID-t!");
+            return;
+        }
+        showErrorDialog("Pozició zárva!");
+        oandaConfig.setClosePosition(positionId);
+        closePositionTxt.setText("");
+    }
+    @FXML
+    private void oandaOpenPositions() {
+        openPositionTbl.setItems(FXCollections.observableArrayList(oandaConfig.getOpenPositions()));
+    }
+
     ///// *************** View váltások *****************
     @FXML
     public void loadHelloView() throws IOException {
         loadView("views/adatbazis/hello-view.fxml");
         Init();
     }
-
     @FXML
-    public void loadSoapLetoltesView() throws IOException {
-        loadView("views/soap/soap-letoltes.fxml");
+    public void loadSoapLetoltesView() throws IOException { loadView("views/soap/soap-letoltes.fxml"); }
+    @FXML
+    public void loadForexView() throws IOException { loadView("views/forex/forex-szamlainfo.fxml"); }
+    @FXML
+    public void loadForexActualPriceView() throws IOException {
+
+        loadView("views/forex/forex-aktualisarak.fxml");
+        String[] devizaParok = {"EUR_USD", "USD_JPY", "GBP_USD", "USD_CHF"};
+        devizaParCombo.getItems().clear();
+        for (String devizaPar : devizaParok) {
+            devizaParCombo.getItems().add(devizaPar);
+        }
+    }
+    @FXML
+    public void loadForexNyitottPozView() throws IOException { loadView("views/forex/forex-nyitottpoz.fxml"); }
+    @FXML
+    public void loadForexPozNyitasView() throws IOException {
+        loadView("views/forex/forex-poznyitas.fxml");
+        String[] directions = {"Eladás", "Vétel"};
+        String[] CurrencyCodes = {"EUR", "USD", "JPY", "GBP", "CHF", "HUF"};
+        directionComboBox.getItems().clear();
+        for (String direction : directions) {
+            directionComboBox.getItems().add(direction);
+        }
+        baseCurrencyComboBox.getItems().clear();
+        targetCurrencyComboBox.getItems().clear();
+        for (String currency : CurrencyCodes) {
+            baseCurrencyComboBox.getItems().add(currency);
+            targetCurrencyComboBox.getItems().add(currency);
+        }
+
+    }
+    @FXML
+    public void loadForexPozZarasView() throws IOException {
+
+        loadView("views/forex/forex-pozzaras.fxml");
     }
 
-    @FXML
-    public void loadForexView() throws IOException {
-        loadView("views/forex/forex-szamlainfo.fxml");
-    }
 
 //    Betölti a paraméterként átadott fxml fájlt a main_layout fájlba.
     public void loadView(String fxmlFile) throws IOException {
@@ -516,5 +602,20 @@ List<oandaAccount> oandaAccountsresult;
     }
 
     ///// *************** View váltások VÉGE *****************
-
+    @FXML
+    private void showErrorDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Hiba");
+        alert.setHeaderText("");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    @FXML
+    private void showInfoDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("OK");
+        alert.setHeaderText("");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

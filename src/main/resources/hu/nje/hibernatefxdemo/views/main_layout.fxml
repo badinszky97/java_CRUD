@@ -19,11 +19,11 @@
         </Menu>
         <Menu text="Forex">
             <MenuItem text="Számlainformációk" onAction="#loadForexView" />
-            <MenuItem text="Aktuális árak" />
+            <MenuItem text="Aktuális árak" onAction="#loadForexActualPriceView"/>
             <MenuItem text="Historikus árak" />
-            <MenuItem text="Pozíció nyitás" />
-            <MenuItem text="Pozíció zárás" />
-            <MenuItem text="Nyitott pozíciók" />
+            <MenuItem text="Pozíció nyitás" onAction="#loadForexPozNyitasView" />
+            <MenuItem text="Pozíció zárás" onAction="#loadForexPozZarasView"/>
+            <MenuItem text="Nyitott pozíciók" onAction="#loadForexNyitottPozView" />
         </Menu>
     </MenuBar>
 </top>

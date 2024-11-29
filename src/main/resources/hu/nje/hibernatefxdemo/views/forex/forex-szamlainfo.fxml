@@ -14,7 +14,7 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <children>
-    <Label layoutX="282.0" prefHeight="40.0" prefWidth="267.0" text="Account"></Label>
+        <Label layoutX="42.0" layoutY="20.0" prefHeight="40.0" prefWidth="267.0" text="Forex -> Számlainformációk" style="-fx-font-size: 20px; -fx-font-weight: bold;"></Label>
         <AnchorPane prefHeight="754.0" prefWidth="1280.0">
             <TableView fx:id="accountDetailTbl" layoutX="457.0" layoutY="24.0" prefHeight="713.0" prefWidth="809.0">
                 <columns>
@@ -29,8 +29,8 @@
                                 </cellValueFactory></TableColumn>
                 </columns>
             </TableView>
-            <Button fx:id="getForexAccount" layoutX="42.0" layoutY="50.0" mnemonicParsing="false"
-                     onAction="#forexGetSzamlaInfo" prefHeight="24.0" prefWidth="140.0" text="Számla infók lekérése" />
+            <Button fx:id="getForexAccount" layoutX="42.0" layoutY="110.0" mnemonicParsing="false"
+                     onAction="#forexGetSzamlaInfo" prefHeight="24.0" prefWidth="200.0" text="Számla infók lekérése" />
         </AnchorPane>
     </children>
 </AnchorPane>

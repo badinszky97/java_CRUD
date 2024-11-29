@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <children>
+    <Label layoutX="42.0" layoutY="10.0" prefHeight="40.0" prefWidth="267.0" text="Forex -> Aktuális Árak" style="-fx-font-size: 20px; -fx-font-weight: bold;"></Label>
+
+        <AnchorPane prefHeight="754.0" prefWidth="1280.0">
+            <TableView fx:id="accountDetailTbl" layoutX="457.0" layoutY="24.0" prefHeight="713.0" prefWidth="809.0">
+                <columns>
+                    <TableColumn fx:id="KeyColumn" prefWidth="300.0" text="KeyColumn">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="name" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="ValueColumn" prefWidth="300.0" text="ValueColumn">
+                    <cellValueFactory>
+                                    <PropertyValueFactory property="value" />
+                                </cellValueFactory></TableColumn>
+                </columns>
+            </TableView>
+            <ComboBox fx:id="devizaParCombo" layoutX="42.0" layoutY="60.0" prefHeight="24.0" prefWidth="171.0" />
+            <Button fx:id="getForexAccount" layoutX="42.0" layoutY="110.0" mnemonicParsing="false"
+                    onAction="#forexGetActualPrice" prefHeight="24.0" prefWidth="200.0" text="Aktuális árak lekérése" />
+        </AnchorPane>
+    </children>
+</AnchorPane>

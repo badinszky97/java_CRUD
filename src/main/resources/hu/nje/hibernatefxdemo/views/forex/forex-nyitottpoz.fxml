@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <children>
+        <Label layoutX="42.0" layoutY="20.0" prefHeight="40.0" prefWidth="267.0" text="Forex -> Nyitott poziciók" style="-fx-font-size: 20px; -fx-font-weight: bold;"></Label>
+        <AnchorPane prefHeight="754.0" prefWidth="1280.0">
+            <TableView fx:id="openPositionTbl" layoutX="457.0" layoutY="24.0" prefHeight="713.0" prefWidth="809.0">
+                <columns>
+                    <TableColumn fx:id="id" prefWidth="20.0" text="id">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="id" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="instrument" prefWidth="75.0" text="Instrument">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="instrument" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="price" prefWidth="75.0" text="Price">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="price" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="openTime" prefWidth="75.0" text="Open Time">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="openTime" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="state" prefWidth="75.0" text="State">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="state" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="initialUnits" prefWidth="75.0" text="Initial Units">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="initialUnits" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="initialMarginRequired" prefWidth="75.0" text="initialMarginRequired">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="initialMarginRequired" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="currentUnits" prefWidth="75.0" text="CurrentUnits">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="currentUnits" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="realizedPL" prefWidth="75.0" text="RealizedPL">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="realizedPL" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="unrealizedPL" prefWidth="75.0" text="UnrealizedPL">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="unrealizedPL" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="marginUsed" prefWidth="75.0" text="MarginUsed">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="marginUsed" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="averageClosePrice" prefWidth="75.0" text="AverageClosePrice">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="averageClosePrice" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="closingTransactionIDs" prefWidth="75.0" text="ClosingTransactionIDs">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="closingTransactionIDs" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="financing" prefWidth="75.0" text="Financing">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="financing" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="closeTime" prefWidth="75.0" text="closeTime">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="closeTime" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="clientExtensions" prefWidth="75.0" text="clientExtensions">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="clientExtensions" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="takeProfitOrder" prefWidth="75.0" text="takeProfitOrder">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="takeProfitOrder" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="stopLossOrder" prefWidth="75.0" text="stopLossOrder">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="stopLossOrder" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="trailingStopLossOrder" prefWidth="75.0" text="trailingStopLossOrder">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="trailingStopLossOrder" />
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+            <Button fx:id="getForexAccount" layoutX="42.0" layoutY="110.0" mnemonicParsing="false"
+                     onAction="#oandaOpenPositions" prefHeight="24.0" prefWidth="200.0" text="Nyitott poziciók listázás" />
+        </AnchorPane>
+    </children>
+</AnchorPane>

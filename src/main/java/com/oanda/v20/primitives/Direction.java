@@ -16,5 +16,7 @@ public enum Direction {
      * A short Order is used to to sell units of an Instrument. A Trade is
      * short when it has sold units of an Instrument.
      */
-    SHORT
+    SHORT;
+
+    public double units(double units) { return units;}
 }

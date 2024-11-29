@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <children>
+        <Label layoutX="42.0" layoutY="20.0" prefHeight="40.0" prefWidth="267.0" text="Forex -> Pozició zárás" style="-fx-font-size: 20px; -fx-font-weight: bold;"></Label>
+        <AnchorPane prefHeight="754.0" prefWidth="1280.0">
+            <Label layoutX="42.0" layoutY="60.0" prefHeight="38.0" prefWidth="118.0" text="ID"/>
+            <TextField fx:id="closePositionTxt" layoutX="42.0" layoutY="100.0" prefHeight="25.0" prefWidth="150.0"/>
+            <Button fx:id="getForexAccount" layoutX="42.0" layoutY="180.0" mnemonicParsing="false"
+                     onAction="#oandaClosePos" prefHeight="24.0" prefWidth="200.0" text="Pozició Zárása" />
+        </AnchorPane>
+    </children>
+</AnchorPane>
