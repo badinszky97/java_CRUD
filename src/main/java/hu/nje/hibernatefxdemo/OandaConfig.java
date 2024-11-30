@@ -6,12 +6,16 @@ import com.oanda.v20.ExecuteException;
 import com.oanda.v20.RequestException;
 import com.oanda.v20.account.AccountID;
 import com.oanda.v20.account.AccountSummary;
+import com.oanda.v20.instrument.Candlestick;
+import com.oanda.v20.instrument.InstrumentCandlesRequest;
+import com.oanda.v20.instrument.InstrumentCandlesResponse;
 import com.oanda.v20.order.MarketOrderRequest;
 import com.oanda.v20.order.OrderCreateRequest;
 import com.oanda.v20.order.OrderCreateResponse;
 import com.oanda.v20.pricing.ClientPrice;
 import com.oanda.v20.pricing.PricingGetRequest;
 import com.oanda.v20.pricing.PricingGetResponse;
+import com.oanda.v20.primitives.DateTime;
 import com.oanda.v20.primitives.InstrumentName;
 import com.oanda.v20.trade.Trade;
 import com.oanda.v20.trade.TradeCloseRequest;
@@ -68,6 +72,22 @@ public class OandaConfig {
                 declaredField.setAccessible(true);
                 items.add(new Item(declaredField.getName(), declaredField.get(price)));
             }
+            return items;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> getHistoricalPrice(final String instrument, String dateFrom, String dateTo)  {
+        try {
+            final List<String> items = new ArrayList<>();
+            InstrumentCandlesRequest request = new InstrumentCandlesRequest(new InstrumentName(instrument));
+            request.setFrom(dateFrom);
+            request.setTo(dateTo);
+            request.setCount(30L); // 10 adat L: long adattípus
+            InstrumentCandlesResponse resp = context.instrument.candles(request);
+            for(Candlestick candle: resp.getCandles())
+                items.add(candle.toString());
             return items;
         } catch (Exception e) {
             throw new RuntimeException(e);

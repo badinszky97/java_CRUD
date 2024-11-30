@@ -103,6 +103,8 @@ public class GUIController {
     @FXML private TableView<Trade> openPositionTbl;
     @FXML private ComboBox<String> baseCurrencyComboBox, targetCurrencyComboBox, directionComboBox;
     @FXML private TextField amountTextField, closePositionTxt;
+    @FXML private DatePicker dateFrom, dateTo;
+    @FXML private TextArea HistoricalTextArea;
     /**
      * Párhuzamos programozás feladat objektumok
      */
@@ -501,6 +503,28 @@ public class GUIController {
             showErrorDialog("Nincs kiválasztva devizapár!");
         }
     }
+
+    @FXML
+    public void forexGetHistoricalPrice()   {
+        if (devizaParCombo.getValue() != null && dateFrom.getValue() != null && dateTo.getValue() != null) {
+            try {
+                List<String> instruments = new ArrayList<>(Arrays.asList(devizaParCombo.getValue().toString()));
+                List<String> stringList = new ArrayList<>();
+                stringList = oandaConfig.getHistoricalPrice(devizaParCombo.getValue(), dateFrom.getValue().toString(), dateTo.getValue().toString());
+
+                for (String elem : stringList) {
+                    HistoricalTextArea.setText(HistoricalTextArea.getText() + "\n" + elem);
+                }
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        else    {
+            showErrorDialog("Nincs kiválasztva devizapár vagy a dátum tól-ig!");
+        }
+    }
+
     @FXML
     private void oandaOpenPos()    {
         final String baseCurrency = baseCurrencyComboBox.getValue();
@@ -588,6 +612,16 @@ public class GUIController {
     public void loadForexPozZarasView() throws IOException {
 
         loadView("views/forex/forex-pozzaras.fxml");
+    }
+    @FXML
+    public void loadForexHistorikusPriceView() throws IOException {
+
+        loadView("views/forex/forex-historikusarak.fxml");
+        String[] devizaParok = {"EUR_USD", "USD_JPY", "GBP_USD", "USD_CHF"};
+        devizaParCombo.getItems().clear();
+        for (String devizaPar : devizaParok) {
+            devizaParCombo.getItems().add(devizaPar);
+        }
     }
 
 

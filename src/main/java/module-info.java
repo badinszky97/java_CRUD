@@ -20,6 +20,7 @@ module hu.nje.hibernatefxdemo {
     opens com.oanda.v20.order to com.google.gson;
     opens com.oanda.v20.trade to com.google.gson;
     opens com.oanda.v20.transaction to com.google.gson;
+    opens com.oanda.v20.instrument to com.google.gson;
 
     exports hu.nje.hibernatefxdemo;
     exports com.oanda.v20.primitives;
