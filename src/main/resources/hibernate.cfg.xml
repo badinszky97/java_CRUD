@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:sqlite:hibernate.db</property>
+        <property name="connection.url">jdbc:sqlite:C:\hibernate.db</property>
         <mapping class="hu.nje.hibernatefxdemo.Mertek"/>
         <mapping class="hu.nje.hibernatefxdemo.Megnevezes"/>
         <mapping class="hu.nje.hibernatefxdemo.Korlatozas"/>

@@ -132,12 +132,11 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.6</version>
                 <executions>
-
                     <execution>
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>hu.nje.hibernatefxdemo/hu.nje.hibernatefxdemo.JavaElmeletiBeadando</mainClass>
+                            <mainClass>hu.nje.hibernatefxdemo.JavaElmeletiBeadando</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
