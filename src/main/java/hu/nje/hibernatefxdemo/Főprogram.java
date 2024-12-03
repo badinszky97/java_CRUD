@@ -7,6 +7,6 @@ public class Főprogram {
 
     public static void main( String[] args ) throws SQLException {
 //        Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
-        JavaElmeletiBeadando.start(args);
+        JavaElmeletiBeadando.main(args);
     }
 }

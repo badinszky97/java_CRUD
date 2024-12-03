@@ -26,8 +26,7 @@ public class JavaElmeletiBeadando extends Application {
         controller.loadHelloView(); //Ez a default screen ezért rögtön betöltöm init előtt.
         controller.Init();
     }
-    public static void start(String[] args) throws SQLException {
-
+    public static void main( String[] args ) throws SQLException {
         launch();
     }
 }
