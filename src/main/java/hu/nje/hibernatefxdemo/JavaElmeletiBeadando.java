@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.module.Configuration;
+import java.sql.SQLException;
 
 public class JavaElmeletiBeadando extends Application {
 
@@ -24,7 +26,7 @@ public class JavaElmeletiBeadando extends Application {
         controller.loadHelloView(); //Ez a default screen ezért rögtön betöltöm init előtt.
         controller.Init();
     }
-    public static void main(String[] args) {
+    public static void main( String[] args ) throws SQLException {
         launch();
     }
 }
