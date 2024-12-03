@@ -1,0 +1,1 @@
+Futtatáshoz az adatok.db fájlt a C:\adatok mappába kell másolni. Ezután a jar fájl hiba nélkül elindul.
